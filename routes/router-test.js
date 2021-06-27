@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const userQueries = require('../db/queries/user-queries');
-//const db = require('../lib/db-connection');
-const listingQueries = require('../db/queries/listing-queries')
 const postRouter = () => {
   //GET /posts
   router.get('/', (req, res) => {
