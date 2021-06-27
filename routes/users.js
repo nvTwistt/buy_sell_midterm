@@ -9,10 +9,14 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
+  console.log("out");
   router.get("/", (req, res) => {
+    console.log(res.rows);
+    res.render("index");
     db.query(`SELECT * FROM users;`)
       .then(data => {
         const users = data.rows;
+        console.log(users);
         res.json({ users });
       })
       .catch(err => {
