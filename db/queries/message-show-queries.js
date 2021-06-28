@@ -1,5 +1,5 @@
 const db = require('../../lib/db-connection');
-const getAllMessages = () => {
+const getConversation = () => {
   return db.query(`SELECT messages.to_id, messages.from_id, messages.time_sent, messages.message FROM messages
   JOIN users senders ON to_id = senders.id
   JOIN users receivers ON from_id = receivers.id

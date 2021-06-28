@@ -45,7 +45,9 @@ app.use(express.static("public"));
 // app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 const postRouter = require('./routes/router-test');
+const conversationRouter = require('./routes/conversation');
 app.use('/api/posts', postRouter(db));
+app.use('/api/conversations', conversationRouter(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
