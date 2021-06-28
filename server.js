@@ -50,6 +50,7 @@ const allMessageRouter = require('./routes/messages');
 app.use('/api/posts', postRouter(db));
 app.use('/api/conversations', conversationRouter(db));
 app.use('/api/messages', allMessageRouter(db));
+app.use(allMessageRouter(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
