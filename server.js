@@ -51,22 +51,13 @@ app.use(express.static("public"));
 const loginRouter = require('./routes/login-route');
 app.use(loginRouter(db));
 
-const postRouter = require('./routes/router-test');
-<<<<<<< HEAD
-const conversationRouter = require('./routes/show-single-conversation');
 const allMessageRouter = require('./routes/messages-routes');
-=======
-const conversationRouter = require('./routes/conversation');
-const allMessageRouter = require('./routes/messages');
->>>>>>> b08f5bfb49414c62e8eee2bb6f72af10fff9b29f
-app.use('/api/posts', postRouter(db));
-
+app.use('/messages',allMessageRouter(db));
 
 const buySellRouter = require('./routes/buy-sell-routes');
 app.use('/buy-sell', buySellRouter(db));
-app.use('/api/conversations', conversationRouter(db));
+
 //app.use('/api/messages', allMessageRouter(db));
-app.use(allMessageRouter(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).

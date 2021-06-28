@@ -18,7 +18,7 @@ const loginRouter = () => {
     `, userData
     ) 
     .then(() => {
-      res.redirect('/main');
+      res.redirect('/buy-sell');
     })
   })
   return router;

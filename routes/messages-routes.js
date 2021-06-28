@@ -1,31 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const allMessageQuery = require('../db/queries/message-queries');
+const messageQueries = require('../db/queries/message-queries');
+
 const allMessageRouter = () => {
   //GET /posts
-  router.get('/main', (req, res) => {
-    allMessageQuery.getAllMessages()
+  router.get('/', (req, res) => {
+    console.log("lets go");
+    messageQueries.getAllMessages()
     .then((messages) => {
-      console.log(messages.rows);
       res.render('index');
       //res.json(messages);
     })
   })
+
+  // router.get('/:id', (req, res) => {
+  //   messageQueries.getConversation()
+  //   .then((conversation) => {
+  //     //res.json(conversation);
+  //   })
+  // })
+
   return router;
 };
 
-const conversationRouter = () => {
-  //GET /posts
-  router.get('/', (req, res) => {
-    allMessageQuery.getConversation()
-    .then((conversation) => {
-      res.json(conversation);
-    })
-  })
-  return router;
-};
-
-module.exports = {
-  allMessageRouter, 
-  conversationRouter
-};
+module.exports = allMessageRouter;
