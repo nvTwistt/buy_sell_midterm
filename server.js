@@ -46,6 +46,9 @@ app.use(express.static("public"));
 // Note: mount other resources here, using the same pattern above
 const postRouter = require('./routes/router-test');
 app.use('/api/posts', postRouter(db));
+
+const buySellRouter = require('./routes/buy-sell-routes');
+app.use('/buy-sell', buySellRouter(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).

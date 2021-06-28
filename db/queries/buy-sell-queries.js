@@ -2,13 +2,13 @@
 const db = require('../../lib/db-connection');
 
 //create function to query all listings
-const getAllListings = () => {
+const getAllListings = (db) => {
   return db.query(`SELECT title, description, cover_photo_url, price, city FROM listings`)
   .then((response) => {
     return response.rows;
   })
   .catch((err) => {
-    return res.send(err.message);
+    console.log(err.message);
   });
 };
 
@@ -19,7 +19,7 @@ const getAllCategories = () => {
     return response.rows;
   })
   .catch((err) => {
-    return res.send(err.message);
+    console.log(err.message);
   });
 };
 
@@ -30,10 +30,19 @@ const getListing = () => {
     return response.rows;
   })
   .catch((err) => {
-    return res.send(err.message);
+    console.log(err.message);
   });
 };
 
+// const addListing = () => {
+//   return db.query(`INSERT INTO listings(title, description, thumbnail_photo_url, cover_photo_url, price, country, street, city, province, post_code)`)
+//   .then((response) => {
+//     return response.rows;
+//   })
+//   .catch((err) => {
+//     console.log(err.message);
+//   });
+// };
 
 
 module.exports = {
