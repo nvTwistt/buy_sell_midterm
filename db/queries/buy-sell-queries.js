@@ -34,6 +34,18 @@ const getListing = () => {
   });
 };
 
+const getFavorites = (buyerId) => {
+  return db.query(`SELECT title, description, cover_photo_url, thumbnail_photo_url, price, city FROM listings
+  JOIN favorites ON favorites.listing_id = listings.id
+  WHERE favorites.buyer_id = $1`, [buyerId])
+  .then((response) => {
+    return response.rows;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+};
+
 // const addListing = () => {
 //   return db.query(`INSERT INTO listings(title, description, thumbnail_photo_url, cover_photo_url, price, country, street, city, province, post_code)`)
 //   .then((response) => {
@@ -48,7 +60,8 @@ const getListing = () => {
 module.exports = {
   getAllListings,
   getAllCategories,
-  getListing
+  getListing,
+  getFavorites
 };
 
 
