@@ -46,8 +46,10 @@ app.use(express.static("public"));
 // Note: mount other resources here, using the same pattern above
 const postRouter = require('./routes/router-test');
 const conversationRouter = require('./routes/conversation');
+const allMessageRouter = require('./routes/messages');
 app.use('/api/posts', postRouter(db));
 app.use('/api/conversations', conversationRouter(db));
+app.use('/api/messages', allMessageRouter(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
