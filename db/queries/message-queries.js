@@ -1,7 +1,7 @@
 const db = require('../../lib/db-connection');
 const getAllMessages = () => {
   return db.query(`
-  SELECT DISTINCT a.to_id, a.from_id, a.name, a.date 
+  SELECT DISTINCT a.to_id, a.from_id, a.name, a.date, a.listing_id 
   FROM (
     SELECT messages.to_id,
     messages.from_id,
