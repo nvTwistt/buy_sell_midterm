@@ -9,32 +9,27 @@
   <title>TinyApp</title>
 </head>
 <body>
-  <%- include('partials/_header') %>
   <main style="margin: 1em;">
-    <h3>My URLs</h3>
+    <h3>My messages</h3>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Short URL</th>
-          <th scope="col">Long URL</th>
-          <th scope="col">Edit</th>
-          <th scope="col">Delete</th>
+          <th scope="col">Name</th>
+          <th scope="col">Date</th>
+          <th scope="col">Listing Id</th>
         </tr>
       </thead>
       <tbody>
-        <% if(!user) {%> <p> Please Login To See URLs </p><%} %>
-        <% for(let url in urls) { %>
+        <% for(let content in messages) { %>
+          <%= console.log(messages[content].receiver) %>
           <tr>
-            <td><%= url %></td>
-            <td><%= urls[url].longURL %></td>
-            <td><form method="GET" action="/urls/<%= url %>"><button>Edit</button></form>
-            <td><form method="POST" action="/urls/<%= url %>/delete"><button>Delete</button></form>
-            </td>
+            <td><%= messages[content].receiver %></td>
+            <td><%= messages[content].date %></td>
+            <td><%= messages[content].listing_id %></td>
           </tr>
         <% } %>
       </tbody>
     </table>
-    <p class="card-text"><a href="/urls/new"> Create a New Short Link </a></p>
   </main>
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

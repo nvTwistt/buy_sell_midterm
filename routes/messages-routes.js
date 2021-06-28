@@ -5,11 +5,22 @@ const messageQueries = require('../db/queries/message-queries');
 const allMessageRouter = () => {
   //GET /posts
   router.get('/', (req, res) => {
+    const userID = req.session.user_id;
     console.log("lets go");
-    messageQueries.getAllMessages()
-    .then((messages) => {
-      res.render('index');
-      //res.json(messages);
+
+    messageQueries.getAllMessages(userID)
+    .then((data) => {
+      console.log("content",data);
+      const templateVars = {
+        user_id: userID,
+        messages: data
+      };
+      if (userID) {
+        res.render('messages_show', templateVars);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
     })
   })
 
