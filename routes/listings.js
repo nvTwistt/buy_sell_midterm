@@ -1,31 +1,24 @@
 const express = require('express');
-const app = express();
-const ENV = process.env.ENV || "development";
-const bodyParser = require('body-parser');
 const router = express.Router();
-const db = require('../lib/db');
-
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(bodyParser.json());
-const routing = (db) => {
-  console.log("jello");
-  router.get("/", (req, res) => {
-    console.log(req);
-    db.query(`
-    SELECT * FROM listings;`)
-      .then(data => {
-        res.json(data.rows);
-        // console.log(data.rows);
-        // const templateVars = {
-        //   listings: data.rows
-        // };
-        // res.render('index', templateVars);
-      })
-      .catch(err => {
-        res
-          .status(500)
-      });
-  });
+//const db = require('../lib/db-connection');
+const listingQueries = require('../db/queries/listing-queries')
+const postRouter = () => {
+  //GET /posts
+  router.get('/', (req, res) => {
+    userQueries.getUsers()
+    .then((users) => {
+      res.json(users);
+    })
+    // db.query(`SELECT * FROM users;`)
+    // .then((response) => {
+    //   console.log(response)
+    //   res.json(response.rows);
+    // })
+    // .catch((err) => {
+    //   res.send(err.message);
+    // })
+  })
   return router;
-}
-  module.exports = routing;
+};
+
+module.exports = postRouter;
