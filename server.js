@@ -52,8 +52,13 @@ const loginRouter = require('./routes/login-route');
 app.use(loginRouter(db));
 
 const postRouter = require('./routes/router-test');
+<<<<<<< HEAD
 const conversationRouter = require('./routes/show-single-conversation');
 const allMessageRouter = require('./routes/messages-routes');
+=======
+const conversationRouter = require('./routes/conversation');
+const allMessageRouter = require('./routes/messages');
+>>>>>>> b08f5bfb49414c62e8eee2bb6f72af10fff9b29f
 app.use('/api/posts', postRouter(db));
 
 
