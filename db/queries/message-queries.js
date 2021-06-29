@@ -33,13 +33,26 @@ const getAllMessages = (userID) => {
   });
 };
 
-const getConversation = () => {
-  return db.query(`SELECT messages.to_id, messages.from_id, messages.time_sent, messages.message FROM messages
+const getConversation = (query_params) => {
+  return db.query(`
+  SELECT messages.to_id,
+   receivers.name AS receiver_name,
+   messages.from_id,
+   senders.name AS sender_name,
+   messages.time_sent,
+   messages.message,
+   messages.listing_id
+  FROM messages
   JOIN users senders ON to_id = senders.id
   JOIN users receivers ON from_id = receivers.id
   JOIN listings ON listing_id = listings.id
-  WHERE ((to_id = 2 AND from_id = 6) OR (to_id = 6 AND from_id = 2))
-   AND listing_id = 2 ORDER BY messages.time_sent DESC;`)
+  WHERE 
+  ((to_id = $3 AND from_id = $1)
+  OR 
+  (to_id = $1 AND from_id = $3))
+  AND listing_id = $2 
+  ORDER BY messages.time_sent DESC;
+  `, query_params)
   .then((response) => {
     return response.rows;
   })
@@ -48,8 +61,22 @@ const getConversation = () => {
   });
 };
 
+let getUserName = (userID) => {
+  return db.query(`
+    SELECT name
+    FROM users
+    WHERE id = $1;
+  `, [userID])
+  .then((response) => {
+    response.rows;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+};
 
 module.exports = {
   getAllMessages,
-  getConversation
+  getConversation,
+  getUserName
 };

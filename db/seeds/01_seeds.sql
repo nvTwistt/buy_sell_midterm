@@ -51,11 +51,11 @@ INSERT INTO listings (
 
   INSERT INTO messages (to_id, from_id, time_sent, message, listing_id)
   VALUES 
-  (6,2, '2021-06-26 15:00:000', 'I am interested in your MK50 suit', 2),
-  (6,2, '2021-06-26 15:30:000', 'Hello? Did you get my message?', 2),
-  (2,6, '2021-06-26 15:40:000', 'Yes, I am only willing to take 1 billion cash', 2),
-  (6,2, '2021-06-26 15:50:000', 'That is a stupid amount, how about 900mil?', 2),
-  (6,1, '2021-06-27 15:50:000', 'Please accept my offer', 3),
-  (6,2, '2021-06-27 15:50:000', 'Hey', 3),
-  (6,2, '2021-06-27 15:55:000', 'Cool', 3),
-  (2,6, '2021-06-26 17:00:000', 'Nope, my price is firm and I am not in a rush to sell', 2);
+  (2,6, '2021-06-26 15:00:000', 'I am interested in your MK50 suit', 2),
+  (2,6, '2021-06-26 15:30:000', 'Hello? Did you get my message?', 2),
+  (6,2, '2021-06-26 15:40:000', 'Yes, I am only willing to take 1 billion cash', 2),
+  (2,6, '2021-06-26 15:50:000', 'That is a stupid amount, how about 900mil?', 2),
+  (1,6, '2021-06-27 15:50:000', 'Please accept my offer', 3),
+  (2,6, '2021-06-27 15:50:000', 'Hey', 3),
+  (2,6, '2021-06-27 15:55:000', 'Cool', 3),
+  (6,2, '2021-06-26 17:00:000', 'Nope, my price is firm and I am not in a rush to sell', 2);
