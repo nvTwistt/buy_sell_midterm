@@ -1,4 +1,4 @@
-<form action="/api/properties" method="post" id="new-property-form" class="new-property-form">
+<form action="/buy-sell" method="post" id="new-property-form" class="new-property-form">
   <div class="new-property-form__field-wrapper">
     <label for="new-property-form__title">Title</label>
     <input type="text" name="title" placeholder="Title" id="new-property-form__title">
@@ -9,28 +9,10 @@
     <textarea placeholder="Description" name="description" id="property-form__description" cols="30" rows="10"></textarea>
   </div>
 
-  <!-- <div class="new-property-form__field-wrapper">
-      <label for="new-property-form__type">Type</label>
-      <select id="new-property-form__type" name="type">
-          <option value="house">House</option>
-          <option value="apartment">Apartment</option>
-      </select>
-    </div> -->
 
   <div class="new-property-form__field-wrapper">
-    <label for="new-property-form__bedrooms"># 🛌</label>
-    <input placeholder="# 🛌" type="number" name="number_of_bedrooms" id="new-property-form__bedrooms">
-
-    <label for="new-property-form__bathrooms"># 🚽</label>
-    <input placeholder="# 🚽" type="number" name="number_of_bathrooms" id="new-property-form__rooms">
-
-    <label for="new-property-form__parking"># 🚘</label>
-    <input placeholder="# 🚘" type="number" name="parking_spaces" id="new-property-form__parking">
-  </div>
-
-  <div class="new-property-form__field-wrapper">
-    <label for="new-property-form__cost">Cost Per Night</label>
-    <input placeholder="Cost Per Night" type="number" name="cost_per_night" id="new-property-form__cost">
+    <label for="new-property-form__cost">Price</label>
+    <input type="number" name="price" id="new-property-form__cost">
   </div>
 
   <div class="new-property-form__field-wrapper">
@@ -45,10 +27,6 @@
 
   <hr>
 
-  <div class="new-property-form__field-wrapper">
-      <label for="new-property-form__street">Street</label>
-      <input placeholder="Street" type="text" name="street" id="new-property-form__street" />
-    </div>
 
     <div class="new-property-form__field-wrapper">
       <label for="new-property-form__country">Country</label>
@@ -64,10 +42,7 @@
         <label for="new-property-form__city">City</label>
         <input placeholder="City" type="text" name="city" id="new-property-form__city" />
       </div>
-      <div class="new-property-form__field-wrapper">
-        <label for="new-property-form__state">Administrative Area</label>
-        <input placeholder="Administrative Area" type="text" name="province" id="new-property-form__state" />
-      </div>
+
       <div class="new-property-form__field-wrapper">
         <label for="new-property-form__zip">Postal Code</label>
         <input placeholder="Postal Code" type="text" name="post_code" id="new-property-form__zip" />
