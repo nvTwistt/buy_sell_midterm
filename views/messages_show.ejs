@@ -17,6 +17,7 @@
           <th scope="col">Name</th>
           <th scope="col">Date</th>
           <th scope="col">Listing Id</th>
+          <th scope="col">View</th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +27,11 @@
             <td><%= messages[content].receiver %></td>
             <td><%= messages[content].date %></td>
             <td><%= messages[content].listing_id %></td>
+            <td>
+              <form method="post" action='/messages' >
+                <button type="submit" class="btn btn-outline-primary" name="requiredData" value=<%=`${messages[content].listing_id},${messages[content].from_id}`%>> View </button>
+              </form>
+            </td>
           </tr>
         <% } %>
       </tbody>
