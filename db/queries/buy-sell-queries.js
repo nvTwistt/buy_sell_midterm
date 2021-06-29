@@ -3,7 +3,7 @@ const db = require('../../lib/db-connection');
 
 //create function to query all listings
 const getAllListings = (db) => {
-  return db.query(`SELECT title, description, cover_photo_url, price, city FROM listings`)
+  return db.query(`SELECT id, title, description, cover_photo_url, price, city, category_id FROM listings`)
   .then((response) => {
     return response.rows;
   })
@@ -14,7 +14,7 @@ const getAllListings = (db) => {
 
 //create function to query all categories in database
 const getAllCategories = (db) => {
-  return db.query(`SELECT name FROM category_list`)
+  return db.query(`SELECT id, name FROM category_list`)
   .then((response) => {
     return response.rows;
   })
