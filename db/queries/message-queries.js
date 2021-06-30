@@ -61,22 +61,23 @@ const getConversation = (query_params) => {
   });
 };
 
-let getUserName = (userID) => {
-  return db.query(`
-    SELECT name
-    FROM users
-    WHERE id = $1;
-  `, [userID])
-  .then((response) => {
-    response.rows;
+const insertNewMessage = (queryData) => {
+  db.query(`
+  INSERT INTO messages
+  (to_id, from_id, time_sent, message, listing_id) 
+  VALUES ($2,$1, $3, $4, $5) RETURNING *;
+  `, queryData)
+  .then((data) => {
+    console.log(data);
   })
   .catch((err) => {
     console.log(err);
-  });
+  })
 };
+
 
 module.exports = {
   getAllMessages,
   getConversation,
-  getUserName
+  insertNewMessage
 };
