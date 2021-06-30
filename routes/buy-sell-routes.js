@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const buySellQueries = require('../db/queries/buy-sell-queries');
+const helperQueries = require('../db/queries/helper-queries-and-functions');
 
 const buySellRouter = (db) => {
 
