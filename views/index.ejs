@@ -69,9 +69,9 @@
           <% for(let listing in listings) { %>
             <a href="/buy-sell/categories/<%= listings[listing].category_id %>/listings/<%= listings[listing].id %>"
             <div><%= listings[listing].title %></div>
-            <div><%= listings[listing].title %></div>
-            <div><%= listings[listing].title %></div>
-            <div><%= listings[listing].title %></div>
+            <div><%= listings[listing].price %></div>
+            <div><%= listings[listing].description %></div>
+            <div><%= listings[listing].cover_photo_url %></div>
             </a>
           <% } %>
         </section>
