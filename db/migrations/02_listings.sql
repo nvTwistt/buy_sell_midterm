@@ -12,6 +12,6 @@ CREATE TABLE listings (
   city VARCHAR(255),
   province VARCHAR(255),
   post_code VARCHAR(255),
-  active BOOLEAN,
+  active BOOLEAN DEFAULT TRUE,
   category_id INTEGER REFERENCES category_list(id) ON DELETE CASCADE
 );

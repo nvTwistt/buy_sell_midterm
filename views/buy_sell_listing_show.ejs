@@ -1,35 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>URL - TinyApp Example</title>
-</head>
+  <head>
+    <!-- Meta Information -->
+    <title>Tweeter - Home Page</title>
 
-<body>
-  <%- include('partials/_header') %>
-  <div class="card text-center">
-      <div class="card-header"></div>
-      <div class="card-body">
-        <h5 class="card-title">TinyURL for: <%= longURL %></h5>
-        <p class="card-text">Short URL: <a href="/u/<%= shortURL %>"><%= shortURL %></a></p>
-        <div class="card-footer text-muted"></div>
-        <div>
-          <form class="form-inline" action="/urls/<%= shortURL %>" method="POST">
-            <div class="card-body">
-              <h3 >Edit</h3>
-              <label for="longURL">New URL:</label>
-              <input type="text" name="longURL" placeholder="https://" style="width: 300px; margin: 1em">
-              <button type="submit" class="btn btn-primary">Update</button>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/posted-tweet.css" type="text/css" />
+
+    <!-- External JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- App JS -->
+    <script type="text/javascript" src="/scripts/client.js"></script>
+    <script type='text/javascript' src='scripts/composer-char-counter.js'></script>
+
+    <!-- Bungee/Source Sans Pro Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+
+    <!-- Icons - AwesomeFont -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <!-- Viewport mobile default prevention -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+  </head>
+
+<!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
+  <body>
+    <main class="main">
+      <!-- Top nav bar (fixed) -->
+      <header class="section menu">
+        <nav>
+          <span class="tweeter-name">tweeters</span>
+          <span class="logo">
+            <span><b>Write</b> a new tweet</span>
+            <i class="fas fa-angle-double-down"></i>
+          </span>
+        </nav>
+      </header>
+
+      <aside class="section hero">
+        <header class="nav-header">
+          <div id="avatar">
+              <img src="/images/profile-hex.png">
+          </div>
+          <br>
+          <div>
+              <h2>Adel Ibrahim</h2>
+          </div>
+        </header>
+      </aside>
+
+      <!-- Page-specific (main) content here -->
+      <main class="container">
+        <!-- Container for error message box -->
+        <section>
+          <% for(let category in categories) { %>
+            <a href="/buy-sell/categories/<%= categories[category].id %>"
+            <div><%= categories[category].name %></div>
+          <% } %>
+            </a>
+        </section>
+
+        <section>
+            <div><%= categoryListings['title'] %></div>
+            <div><%= categoryListings['description'] %></div>
+            <div><%= categoryListings['price'] %></div>
+            <div><%= categoryListings['cover_photo_url'] %></div>
+            <div><%= categoryListings['country'] %></div>
+            <div><%= categoryListings['city'] %></div>
+            <div><%= categoryListings['province'] %></div>
+        </section>
+
+        <!-- <div class="form-group mb-2">
+          <% if (user === categoryListings['seller_id']){ %>
+            <div class="form-group mb-2">
+            <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['id'].category_id %>/listings/<%= listings[listing].id %>" method="DELETE">
+              <button type="submit" class="btn btn-primary">Delete</button>
+            </form>
             </div>
-          </form>
-        </div>
-      </div>
-  </div>
+          <% } %>
+        </div> -->
 
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+        <div class="form-group mb-2">
+            <div class="form-group mb-2">
+            <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>" method="POST">
+              <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+            </form>
+            </div>
+        </div>
+
+        <div class="form-group mb-2">
+          <div class="form-group mb-2">
+          <form class="form-inline" action="/buy-sell/favorites" method="POST">
+            <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Add to Favorites</button>
+          </form>
+          </div>
+      </div>
+
+        <section class="section content">
+          <section class="new-tweet">
+            <form class="tweet-form" method="POST" action="/tweets">
+
+            <div class="top">
+              <textarea name="text" placeholder="What are you humming about?" id="tweet-text"></textarea>
+            </div>
+
+              <div class="bottom">
+                <button type="submit">Tweet</button>
+                <output name="counter" class="counter" for="tweet-text">140</output>
+              </div>
+            </form>
+          </section>
+        </section>
+
+        <section class="section feature">
+          <div class="for-prepending-tweets"></div>
+        </section>
+
+        <section class="section footer">GitHub:@Soliloqiuy</section>
+
+      </main>
+    </main>
+  </body>
 </html>

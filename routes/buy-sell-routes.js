@@ -18,9 +18,19 @@ const buySellRouter = (db) => {
 
 //POST /buy-sell
   router.post('/', (req, res) => {
-    buySellQueries.addListing(listingId, db)
-    .then(() => {
-      res.redirect('/buy-sell')
+    const sellerId = 3;
+    const listing = req.body;
+    listing['seller_id'] = sellerId;
+    console.log(listing.category)
+    buySellQueries.getCategoryForAddListing(listing.category, db)
+    .then((categoryId) => {
+      const id = categoryId['id'];
+      listing['category_id'] = id;
+      console.log(listing)
+      buySellQueries.addListing(listing, db)
+      .then(() => {
+        res.redirect('/buy-sell')
+      })
     })
   })
 
@@ -33,6 +43,7 @@ router.get('/new', (req, res) => {
 
 //GET /buy-sell/favorites
 router.get('/favorites', (req, res) => {
+  const buyerId = 5
   buySellQueries.getFavorites(buyerId, db)
   .then((favorites) => {
     const templateVars = {user:null, favorites}
@@ -42,16 +53,19 @@ router.get('/favorites', (req, res) => {
 
 //POST /buy-sell/favorites
 router.post('/favorites', (req, res) => {
-  buySellQueries.addFavorite(listingId, db)
+  const listingId = Object.keys(req.body)[0];
+  const listing = {buyer_id: 5, listing_id: listingId};
+  buySellQueries.addFavorite(listing, db)
   .then(() => {
     res.redirect('/buy-sell/favorites');
   })
 })
 
-//DELETE /buy-sell/favorites
-router.delete('/favorites', (req, res) => {
+//DELETE /buy-sell/favorites/delete
+router.post('/favorites/delete', (req, res) => {
+  listingId = Object.keys(req.body)[0];
   buySellQueries.deleteFavoriteListing(listingId, db)
-  .then((listings) => {
+  .then(() => {
     res.redirect('/buy-sell/favorites');
   })
 })
@@ -89,17 +103,19 @@ router.get('/categories/:id1/listings/:id2', (req, res) => {
     .then((categories) => {
       buySellQueries.getListing(listingId, categoryId, db)
       .then((categoryListings) => {
-        const templateVars = {user:null, categoryListings}
+        const templateVars = {user:null, categoryListings, categories}
         res.render('buy_sell_listing_show', templateVars);
       })
     })
 })
 
 //DELETE /buy-sell/categories/:id/listings/:id
-router.delete('/categories/:id1/listings/:id2', (req, res) => {
+router.post('/categories/:id1/listings/:id2', (req, res) => {
+  const listingId = req.params.id2;
+  const categoryId = req.params.id1;
   buySellQueries.deleteListing(listingId, categoryId, db)
-  .then((listing) => {
-    res.json(listing);
+  .then(() => {
+    res.redirect('/buy-sell');
   })
 })
 
