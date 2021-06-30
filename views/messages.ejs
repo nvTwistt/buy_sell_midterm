@@ -24,22 +24,25 @@
       </div>
     </form>
     <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">To</th>
-          <th scope="col">From</th>
-          <th scope="col">Message</th>
-          <th scope="col">Listing Id</th>
-        </tr>
-      </thead>
       <tbody>
         <% for(let content in messages) { %>
-          <tr>
+          <!-- <tr>
             <td><%= messages[content].sender_name %></td>
             <td><%= messages[content].receiver_name %></td>
             <td><%= messages[content].message %></td>
             <td><%= messages[content].listing_id %></td>
-          </tr>
+          </tr> -->
+          <section id="message-container" class="message-tracker">
+            <header class = "message-header">
+              <div class="left-header">
+                <h6 class = "name"><%=messages[content].sender_name%></h6>
+              </div>
+              <div class= "name"></div>
+            </header>
+            <p class = "message body">
+              <%=messages[content].message%>
+            </p>
+          </section>
         <% } %>
       </tbody>
     </table>

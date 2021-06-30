@@ -1,6 +1,13 @@
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 .messageForm {
