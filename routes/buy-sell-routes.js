@@ -87,6 +87,7 @@ router.get('/categories/:id', (req, res) => {
     .then((categories) => {
       buySellQueries.getCategoryListings(categoryId, db)
       .then((category) => {
+        console.log(category)
         const templateVars = {user:null, category, categories}
         res.render('buy_sell_categories_show', templateVars);
       })

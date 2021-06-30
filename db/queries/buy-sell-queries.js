@@ -38,7 +38,7 @@ const getListing = (listingId, categoryId, db) => {
 
 //create function to query individual category
 const getCategoryListings = (categoryId, db) => {
-  return db.query(`SELECT title, description, cover_photo_url, thumbnail_photo_url, price, city, category_id FROM listings
+  return db.query(`SELECT listings.id, title, description, cover_photo_url, thumbnail_photo_url, price, city, category_id FROM listings
   JOIN category_list ON category_list.id = listings.category_id
   WHERE category_list.id = $1`, [categoryId])
   .then((response) => {
