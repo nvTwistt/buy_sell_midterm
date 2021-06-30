@@ -79,7 +79,7 @@ const getBuyersName = (buyerID) => {
   db.query(`
   SELECT users.name
   FROM users
-  WHERE id = $1; 
+  WHERE id = $1 
   `, [buyerID])
   .then((data) => {
     return data.rows;
