@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const buySellQueries = require('../db/queries/buy-sell-queries');
+const helperQueries = require('../db/queries/helper-queries-and-functions');
 
 const buySellRouter = (db) => {
 
@@ -87,6 +88,7 @@ router.get('/categories/:id', (req, res) => {
     .then((categories) => {
       buySellQueries.getCategoryListings(categoryId, db)
       .then((category) => {
+        console.log(category)
         const templateVars = {user:null, category, categories}
         res.render('buy_sell_categories_show', templateVars);
       })
@@ -99,10 +101,13 @@ router.get('/categories/:id1/listings/:id2', (req, res) => {
   const categoryId = req.params.id1;
   const listingId = req.params.id2;
 
+  console.log(categoryId, listingId)
+
   buySellQueries.getAllCategories(db)
     .then((categories) => {
       buySellQueries.getListing(listingId, categoryId, db)
       .then((categoryListings) => {
+        console.log(categoryListings)
         const templateVars = {user:null, categoryListings, categories}
         res.render('buy_sell_listing_show', templateVars);
       })
