@@ -99,10 +99,13 @@ router.get('/categories/:id1/listings/:id2', (req, res) => {
   const categoryId = req.params.id1;
   const listingId = req.params.id2;
 
+  console.log(categoryId, listingId)
+
   buySellQueries.getAllCategories(db)
     .then((categories) => {
       buySellQueries.getListing(listingId, categoryId, db)
       .then((categoryListings) => {
+        console.log(categoryListings)
         const templateVars = {user:null, categoryListings, categories}
         res.render('buy_sell_listing_show', templateVars);
       })
