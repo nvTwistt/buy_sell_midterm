@@ -17,7 +17,11 @@ const loginRouter = () => {
     WHERE id = $1;
     `, userData
     ) 
-    .then(() => {
+    .then((data) => {
+      delete req.session.user_name;
+      let userData = data.rows[0];
+      let name = userData['name'];
+      req.session.user_name = name;
       res.redirect('/buy-sell');
     })
   })
