@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
-    <!-- App CSS -->
+  <!-- App CSS -->
   <link rel="stylesheet" href="/styles/new-message.css">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>TinyApp</title>
 </head>
 <body>
+  <%- include('partials/_header') %>
   <main class="container">
-    <h3><%= userName%>'s Messages</h3>
+    <h3 class="title"><%= userName%>'s Messages</h3>
     <H6>Send a message to <%=buyerName%></H6>
     <form class="messageForm" method="POST" action="/messages/views">
       <textarea placeholder="Type your message here." name = "text" id="message-text" class="text"></textarea>
