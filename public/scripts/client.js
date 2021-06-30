@@ -1,7 +1,9 @@
 $(document).ready(function() {
+  console.log("ready");
   const loadMessages = function () {
-    $.get("/messages/views", function (res, req) {
-      renderMessages(res);
+    $.get("/views", function (res, req) {
+      console.log("Silly res: ",res);
+      console.log("silly req: ",req);
     });
   }
   $(".messageForm").submit(function(event) {
@@ -15,6 +17,7 @@ $(document).ready(function() {
       })
       .then(()=> {
         $(".messageForm").empty();
+        loadMessages();
         this.reset();
       })
     }
