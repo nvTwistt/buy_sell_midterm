@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js%22%3E"></script>
-  <script type="text/javascript" src="/public/scripts/client.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
+    <!-- App CSS -->
+  <link rel="stylesheet" href="/styles/new-message.css">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>TinyApp</title>
 </head>
 <body>
-  <main style="margin: 1em;">
+  <main class="container">
     <h3><%= userName%>'s Messages</h3>
-    <H6>Send a message back</H6>
+    <H6>Send a message to <%=buyerName%></H6>
     <form class="messageForm" method="POST" action="/messages/views">
-      <textarea placeholder="Send a message back." name = "text" id="message-text"></textarea>
+      <textarea placeholder="Type your message here." name = "text" id="message-text" class="text"></textarea>
       <br>
       <div class = "submission">
         <button id="submissionButton" class="messageButton" type="submit" name="requiredData" value=<%=`${messages[0].to_id},${messages[0].from_id}`%>>Send Message</button>

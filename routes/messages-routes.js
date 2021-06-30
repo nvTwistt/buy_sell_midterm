@@ -31,9 +31,21 @@ const allMessageRouter = () => {
     let listing_id_number = splitData[0];
     let buyer_id_number = splitData[1];
     const userID = req.session.user_id;
-    sessionDatabase[userID] = {'listing':listing_id_number, 'id':buyer_id_number};
-    //console.log(sessionDatabase[userID]);
+    db.query(`
+    SELECT users.name
+    FROM users
+    WHERE id = $1 
+    `, [buyer_id_number])
+    .then((data) => {
+      console.log("data:", data.rows[0].name);
+      sessionDatabase[userID] = {
+        'listing':listing_id_number,
+        'id':buyer_id_number,
+        'buyer':data.rows[0].name
+      };
+    })
     
+    console.log("user_id: ", userID)
     res.redirect("/messages/views");
   })
 
@@ -69,7 +81,7 @@ const allMessageRouter = () => {
     VALUES ($2,$1, $3, $4, $5) RETURNING *;
     `,queryData)
     .then((data) => {
-      console.log(data);
+      //console.log(data);
     })
     .catch((err) => {
       console.log(err);
@@ -77,25 +89,22 @@ const allMessageRouter = () => {
     res.redirect("/messages/views");
   })
   router.get('/views', (req, res) => {
-    //console.log("session: ",res.session);
-    //console.log("body: ",req.session.user_id);
-    //console.log(sessionDatabase[6]);
     let userID = req.session.user_id;
     let listing_id_number = sessionDatabase[userID].listing;
     let buyer_id_number = sessionDatabase[userID].id;
+    let buyer_name = sessionDatabase[userID].buyer;
+    console.log(buyer_name);
     let query_params = [userID, listing_id_number, buyer_id_number];
-    //console.log("list number ",listing_id_number);
-    //console.log("buyer number ",buyer_id_number);
     let name = req.session.user_name;
-    //console.log("users name", req.session.user_name);
     if(userID){
       messageQueries.getConversation(query_params)
       .then((data) => {
-        //console.log("content",data);
+        //console.log(data);
         const templateVars = {
           userName: name,
           user_id: userID,
-          messages: data
+          messages: data,
+          buyerName: buyer_name
         };
         res.render('messages', templateVars);
       })
@@ -104,13 +113,6 @@ const allMessageRouter = () => {
       })
     }
   })
-  // router.get('/:id', (req, res) => {
-  //   messageQueries.getConversation()
-  //   .then((conversation) => {
-  //     //res.json(conversation);
-  //   })
-  // })
-
   return router;
 };
 
