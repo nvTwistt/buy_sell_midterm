@@ -25,23 +25,47 @@
     <input placeholder="Cover Image" type="text" name="cover_photo_url" id="new-property-form__cover">
   </div>
 
+  <div class="new-property-form__field-wrapper">
+    <label for="new-property-form__category">Category</label>
+    <select id="new-property-form__category" name="category">
+      <option>Iron Man</option>
+      <option>Star Lord</option>
+      <option>Spiderman</option>
+      <option>Black Widow</option>
+      <option>Batman</option>
+      <option>Thanos</option>
+    </select>
+  </div>
+
   <hr>
 
 
     <div class="new-property-form__field-wrapper">
       <label for="new-property-form__country">Country</label>
       <select id="new-property-form__country" name="country" data-country-selected="CA">
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="BR">Brazil</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="BR">Brazil</option>
       </select>
     </div>
+
+    <div class="new-property-form__field-wrapper">
+      <label for="new-property-form__province">Province</label>
+      <input placeholder="Province" type="text" name="province" id="new-property-form__city" />
+    </div>
+
     <div id="new-property-form__locality-fields">
 
       <div class="new-property-form__field-wrapper">
         <label for="new-property-form__city">City</label>
         <input placeholder="City" type="text" name="city" id="new-property-form__city" />
       </div>
+
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__street">Street</label>
+        <input placeholder="Street" type="text" name="street" id="new-property-form__street" />
+      </div>
+    </div>
 
       <div class="new-property-form__field-wrapper">
         <label for="new-property-form__zip">Postal Code</label>

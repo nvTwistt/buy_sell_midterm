@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Information -->
+    <title>Tweeter - Home Page</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/posted-tweet.css" type="text/css" />
+
+    <!-- External JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- App JS -->
+    <script type="text/javascript" src="/scripts/client.js"></script>
+    <script type='text/javascript' src='scripts/composer-char-counter.js'></script>
+
+    <!-- Bungee/Source Sans Pro Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+
+    <!-- Icons - AwesomeFont -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <!-- Viewport mobile default prevention -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+  </head>
+
+<!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
+  <body>
+    <main class="main">
+      <!-- Top nav bar (fixed) -->
+      <header class="section menu">
+        <nav>
+          <span class="tweeter-name">tweeters</span>
+          <span class="logo">
+            <span><b>Write</b> a new tweet</span>
+            <i class="fas fa-angle-double-down"></i>
+          </span>
+        </nav>
+      </header>
+
+      <aside class="section hero">
+        <header class="nav-header">
+          <div id="avatar">
+              <img src="/images/profile-hex.png">
+          </div>
+          <br>
+          <div>
+              <h2>Adel Ibrahim</h2>
+          </div>
+        </header>
+      </aside>
+
+      <!-- Page-specific (main) content here -->
+      <main class="container">
+        <!-- Container for error message box -->
+        <section>
+          <% for(let category in categories) { %>
+            <a href="/buy-sell/categories/<%= categories[category].id %>"
+            <div><%= categories[category].name %></div>
+          <% } %>
+            </a>
+        </section>
+
+        <section>
+          <% for(let listing in category) { %>
+            <a href="/buy-sell/categories/<%= category[listing].category_id %>/listings/<%= category[listing].id %>"
+            <div><%= category[listing].title %></div>
+            <div><%= category[listing].price %></div>
+            <div><%= category[listing].description %></div>
+            <div><%= category[listing].cover_photo_url %></div>
+            </a>
+          <% } %>
+        </section>
+
+        <section class="section content">
+          <section class="new-tweet">
+            <form class="tweet-form" method="POST" action="/tweets">
+
+            <div class="top">
+              <textarea name="text" placeholder="What are you humming about?" id="tweet-text"></textarea>
+            </div>
+
+              <div class="bottom">
+                <button type="submit">Tweet</button>
+                <output name="counter" class="counter" for="tweet-text">140</output>
+              </div>
+            </form>
+          </section>
+        </section>
+
+        <section class="section feature">
+          <div class="for-prepending-tweets"></div>
+        </section>
+
+        <section class="section footer">GitHub:@Soliloqiuy</section>
+
+      </main>
+    </main>
+  </body>
+</html>
