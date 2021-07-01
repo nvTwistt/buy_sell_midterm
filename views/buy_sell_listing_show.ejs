@@ -82,11 +82,13 @@
 
         <!-- <div class="form-group mb-2">
           <% if (user === categoryListings['seller_id']){ %>
+
             <div class="form-group mb-2">
             <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['id'].category_id %>/listings/<%= listings[listing].id %>" method="DELETE">
               <button type="submit" class="btn btn-primary">Delete</button>
             </form>
             </div>
+
           <% } %>
         </div> -->
 
@@ -105,6 +107,14 @@
           </form>
           </div>
       </div>
+
+      <div class="form-group mb-2">
+        <div class="form-group mb-2">
+        <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit" method="GET">
+          <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Mark Sold</button>
+        </form>
+        </div>
+    </div>
 
         <section class="section content">
           <section class="new-tweet">

@@ -3,7 +3,7 @@ const db = require('../../lib/db-connection');
 
 //create function to query all listings
 const getAllListings = (db) => {
-  return db.query(`SELECT id, title, description, cover_photo_url, price, city, category_id FROM listings`)
+  return db.query(`SELECT id, title, description, cover_photo_url, price, city, category_id, active FROM listings`)
   .then((response) => {
     return response.rows;
   })
@@ -38,7 +38,7 @@ const getListing = (listingId, categoryId, db) => {
 
 //create function to query individual category
 const getCategoryListings = (categoryId, db) => {
-  return db.query(`SELECT listings.id, title, description, cover_photo_url, thumbnail_photo_url, price, city, category_id FROM listings
+  return db.query(`SELECT listings.id, title, description, cover_photo_url, thumbnail_photo_url, price, city, category_id, active FROM listings
   JOIN category_list ON category_list.id = listings.category_id
   WHERE category_list.id = $1`, [categoryId])
   .then((response) => {
@@ -50,7 +50,7 @@ const getCategoryListings = (categoryId, db) => {
 };
 
 const getFavorites = (buyerId, db) => {
-  return db.query(`SELECT title, description, cover_photo_url, thumbnail_photo_url, price, city, category_id, listings.id FROM listings
+  return db.query(`SELECT title, description, cover_photo_url, thumbnail_photo_url, price, city, category_id, listings.id, active FROM listings
   JOIN favorites ON favorites.listing_id = listings.id
   WHERE favorites.buyer_id = $1`, [buyerId])
   .then((response) => {
@@ -88,9 +88,9 @@ const addFavorite = (listing, db) => {
 
 
 const addListing = (listing, db) => {
-  const values = [listing.seller_id, listing.title, listing.description, listing.thumbnail_photo_url, listing.cover_photo_url, listing.price, listing.country, listing.street, listing.city, listing.province, listing.post_code, listing.active, listing.category_id];
+  const values = [listing.seller_id, listing.title, listing.description, listing.thumbnail_photo_url, listing.cover_photo_url, listing.price, listing.country, listing.street, listing.city, listing.province, listing.post_code, listing.category_id];
   return db.query(`INSERT INTO listings(seller_id, title, description, thumbnail_photo_url, cover_photo_url, price, country, street, city, province, post_code, active, category_id)
-  VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+  VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, DEFAULT, $12)
   RETURNING *`, values)
   .then((newListing) => {
     return newListing.rows;
@@ -125,6 +125,13 @@ const deleteListing = (listingId, categoryId, db) => {
   });
 };
 
+const setActive = (listingId, db) => {
+  return db.query(`UPDATE listings
+  SET active = FALSE
+  WHERE id = $1`, [listingId])
+
+};
+
 
 module.exports = {
   getAllListings,
@@ -136,7 +143,8 @@ module.exports = {
   addListing,
   getCategoryForAddListing,
   deleteFavoriteListing,
-  deleteListing
+  deleteListing,
+  setActive
 };
 
 

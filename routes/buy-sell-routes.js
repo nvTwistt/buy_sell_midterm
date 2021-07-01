@@ -12,6 +12,7 @@ const buySellRouter = (db) => {
       buySellQueries.getAllListings(db)
       .then((listings) => {
         const templateVars = {user: null, listings, categories}
+        console.log(listings)
         res.render('index', templateVars);
       })
     })
@@ -119,6 +120,17 @@ router.post('/categories/:id1/listings/:id2', (req, res) => {
   const listingId = req.params.id2;
   const categoryId = req.params.id1;
   buySellQueries.deleteListing(listingId, categoryId, db)
+  .then(() => {
+    res.redirect('/buy-sell');
+  })
+})
+
+//edit /buy-sell/categories/:id/listings/:id/edit
+router.get('/categories/:id1/listings/:id2/edit', (req, res) => {
+  const listingId = req.params.id2;
+  const categoryId = req.params.id1;
+  console.log('here')
+  buySellQueries.setActive(listingId, db)
   .then(() => {
     res.redirect('/buy-sell');
   })
