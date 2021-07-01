@@ -59,7 +59,7 @@ const allMessageRouter = () => {
           `
         SELECT users.name
         FROM users
-        WHERE id = $1 
+        WHERE id = $1
         `,
           [buyer_id_number]
         ).then((data) => {
@@ -181,7 +181,7 @@ const allMessageRouter = () => {
             .catch((err) => {
               console.log(err);
             });
-        
+
       } else {
         alert("You do not have permission to perform this action!");
       }

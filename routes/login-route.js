@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const db = require('../lib/db-connection');
+const helperQueries = require('../db/queries/helper-queries-and-functions');
 
 const loginRouter = () => {
   router.get('/login/:id' , (req, res) => {
