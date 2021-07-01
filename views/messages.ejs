@@ -7,12 +7,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
   <!-- App CSS -->
   <link rel="stylesheet" href="/styles/new-message.css">
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"
+  ></script>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>TinyApp</title>
 </head>
-<body>
-  <%- include('partials/_header') %>
+<body id="main-content-container">
+  <nav class="top">
+    <div class="left">
+      <span class="content-head">tweeter</span>
+    </div>
+    <div class="right">
+      <p class = "message-link"><b>Write </b> a new tweet</p>
+      <div id="tweet-click">
+        <i class="fa fa-angle-double-down"></i>
+      </div>
+    </div>
+  </nav>
   <main class="container">
     <h3 class="title"><%= userName%>'s Messages</h3>
     <H6>Send a message to <%=buyerName%></H6>
@@ -23,30 +36,51 @@
         <button id="submissionButton" class="messageButton" type="submit" name="requiredData" value=<%=`${messages[0].to_id},${messages[0].from_id}`%>>Send Message</button>
       </div>
     </form>
-    <table class="table">
-      <tbody>
+    <div class="messagecontainer">
         <% for(let content in messages) { %>
-          <!-- <tr>
-            <td><%= messages[content].sender_name %></td>
-            <td><%= messages[content].receiver_name %></td>
-            <td><%= messages[content].message %></td>
-            <td><%= messages[content].listing_id %></td>
-          </tr> -->
+          <% console.log(messages[content]) %>
+          <% if (user_id == messages[content].from_id) {%>
+          <div class="sender">
           <section id="message-container" class="message-tracker">
             <header class = "message-header">
               <div class="left-header">
-                <h6 class = "name"><%=messages[content].sender_name%></h6>
+                <h6 class = "name"><%=messages[content].receiver_name%></h6>
               </div>
               <div class= "name"></div>
             </header>
-            <p class = "message body">
+            <p class = "message-body">
               <%=messages[content].message%>
             </p>
+            <footer class="message-footer">
+              <p class="time-section">
+                <%=messages[content].time_sent%>
+              </p>
+            </footer>
           </section>
-        <% } %>
-      </tbody>
-    </table>
+          </div>
+          <% } else { %>
+            <div class="receiver">
+            <section id="receiver_message" class="receiver_message">
+              <header class = "message-header">
+                <div class="left-header">
+                  <h6 class = "name"></h6>
+                </div>
+                <div class= "name-right"><%=messages[content].receiver_name%></div>
+              </header>
+              <p class = "message-body">
+                <%=messages[content].message%>
+              </p>
+              <footer class="m-footer">
+                <p class="time-section">
+                  <%=messages[content].time_sent%>
+                </p>
+              </footer>
+            </section>
+            </div>
+        <% }} %>
+    </div>
   </main>
+  <footer class="main-footer"></footer>
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
