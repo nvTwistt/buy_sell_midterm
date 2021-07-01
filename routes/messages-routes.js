@@ -1,4 +1,6 @@
 const express = require('express');
+const moment = require('moment');
+moment().format();
 const router = express.Router();
 const messageQueries = require('../db/queries/message-queries');
 const db = require('../lib/db-connection');
@@ -100,6 +102,12 @@ const allMessageRouter = () => {
       messageQueries.getConversation(query_params)
       .then((data) => {
         //console.log(data);
+        // const time = data[0].time_sent;
+        // console.log(moment(time).fromNow());
+        for (let items of data) {
+          let sent = moment(items.time_sent).fromNow();
+          items.time_sent = sent;
+        }
         const templateVars = {
           userName: name,
           user_id: userID,
