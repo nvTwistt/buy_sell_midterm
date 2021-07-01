@@ -45,6 +45,7 @@ const allMessageRouter = () => {
     let listing_id_number = splitData[0];
     let buyer_id_number = splitData[1];
     const userID = req.session.user_id;
+    let redirectKey = buyer_id_number + userID + listing_id_number;
     const userDB = userCheck.checkUser(userID).then((data) => {
       return data;
     });
@@ -73,10 +74,10 @@ const allMessageRouter = () => {
     };
     getObject();
     console.log("user_id: ", userID);
-    res.redirect("/messages/views");
+    res.redirect(`/messages/${redirectKey}`);
   });
 
-  router.post("/views", (req, res) => {
+  router.post("/:id", (req, res) => {
     let user_id = req.session.user_id;
     const userDB = userCheck.checkUser(user_id).then((data) => {
       console.log("data: ", data);
@@ -87,7 +88,7 @@ const allMessageRouter = () => {
       idObject = await userDB;
       console.log("WHAT: ", idObject);
       let dbID = idObject.id;
-      if (userID && parseInt(user_id) === parseInt(dbID)) {
+      if (user_id && parseInt(user_id) === parseInt(dbID)) {
         const bodyText = req.body.text;
         let returnData = req.body;
         let requiredData = returnData["requiredData"];
@@ -138,14 +139,14 @@ const allMessageRouter = () => {
           .catch((err) => {
             console.log(err);
           });
-        res.redirect("/messages/views");
+        res.redirect("/messages/:id");
       } else {
         alert("You do not have permission to perform this action!");
       }
     };
     getObject();
   });
-  router.get("/views", (req, res) => {
+  router.get("/:id", (req, res) => {
     const userID = req.session.user_id;
     console.log("lets go");
     const userDB = userCheck.checkUser(userID).then((data) => {
