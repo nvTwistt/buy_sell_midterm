@@ -2,18 +2,16 @@
 <html lang="en">
   <head>
     <!-- Meta Information -->
-    <title>Favorites</title>
+    <title>Tweeter - Home Page</title>
 
     <!-- External CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/posted-tweet.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/new-tweet.css">
+    <link rel="stylesheet" href="/styles/container.css">
 
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -35,74 +33,86 @@
 
 <!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
   <body>
-    <main class="main">
-      <!-- Top nav bar (fixed) -->
-      <header class="section menu">
-        <nav>
-          <span class="tweeter-name">tweeters</span>
-          <span class="logo">
-            <span><b>Write</b> a new tweet</span>
-            <i class="fas fa-angle-double-down"></i>
-          </span>
-        </nav>
-      </header>
+    <main class="favorites-column-layout">
+      <% for (let favorite in favorites) { %>
 
-      <aside class="section hero">
-        <header class="nav-header">
-          <div id="avatar">
-              <img src="/images/profile-hex.png">
-          </div>
-          <br>
-          <div>
-              <h2>Adel Ibrahim</h2>
-          </div>
-        </header>
-      </aside>
+        <% if (favorites[favorite].active) { %>
 
-      <!-- Page-specific (main) content here -->
-      <main class="container">
-        <!-- Container for error message box -->
-        <section>
+            <a href="/buy-sell/categories/<%= favorites[favorite].category_id %>/listings/<%= favorites[favorite].id %>">
 
-        </section>
+              <section class="display-left">
 
-        <section>
-          <% for(let favorite in favorites) { %>
-            <a href="/buy-sell/categories/<%= favorites[favorite].category_id %>/listings/<%= favorites[favorite].id %>"
-            <div><%= favorites[favorite].title %></div>
-            <div><%= favorites[favorite].price %></div>
-            <div><%= favorites[favorite].description %></div>
-            <div><%= favorites[favorite].thumbnail_photo_url %></div>
-            <form class="form-inline" action="/buy-sell/favorites/delete" method="POST">
-              <button type="submit" name="<%= favorites[favorite].id %>" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
-            </form>
+                <div class="avatar">
+                            <img src=<%= favorites[favorite].cover_photo_url %> alt="coverphoto">
+                            <p>$<%= favorites[favorite].price %></p>
+                          </div>
+                <section class="listing-container">
+                    <div class="title-container">
+                      <header>
+
+                            <p><%= favorites[favorite].title %></p>
+                          </div>
+                        </header>
+
+                        <p class="listing-text"><%= favorites[favorite].description %></p>
+
+                      <footer>
+                        <div>
+                        </div>
+                        <div>
+                          <p>icon</p>
+                        </div>
+                      </footer>
+
+                  </section>
+
+                  <div class="display-delete-favorites">
+                    <form class="form-inline" action="/buy-sell/favorites/delete" method="POST">
+                      <button type="submit" name="<%= favorites[favorite].id %>" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+                    </form>
+                  </div>
+                </section>
+              </a>
+        <% } else { %>
+          <a href="/buy-sell/categories/<%= favorites[favorite].category_id %>/listings/<%= favorites[favorite].id %>">
+
+            <section class="display-left-sold">
+
+              <div class="avatar">
+                <h1>SOLD</h1>
+                        </div>
+              <section class="listing-container">
+                  <div class="title-container">
+                    <header>
+
+                          <p><%= favorites[favorite].title %></p>
+                        </div>
+                      </header>
+
+                      <p class="listing-text"><%= favorites[favorite].description %></p>
+
+                    <footer>
+                      <div>
+                      </div>
+                      <div>
+                        <p>icon</p>
+                      </div>
+                    </footer>
+
+                </section>
+
+                <div class="display-delete-favorites">
+                  <form class="form-inline" action="/buy-sell/favorites/delete" method="POST">
+                    <button type="submit" name="<%= favorites[favorite].id %>" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+                  </form>
+                </div>
+              </section>
             </a>
-          <% } %>
         </section>
-
-        <section class="section content">
-          <section class="new-tweet">
-            <form class="tweet-form" method="POST" action="/tweets">
-
-            <div class="top">
-              <textarea name="text" placeholder="What are you humming about?" id="tweet-text"></textarea>
-            </div>
-
-              <div class="bottom">
-                <button type="submit">Tweet</button>
-                <output name="counter" class="counter" for="tweet-text">140</output>
-              </div>
-            </form>
-          </section>
-        </section>
-
-        <section class="section feature">
-          <div class="for-prepending-tweets"></div>
-        </section>
-
-        <section class="section footer">GitHub:@Soliloqiuy</section>
-
-      </main>
+        <% } %>
+      <% } %>
     </main>
   </body>
 </html>
+
+

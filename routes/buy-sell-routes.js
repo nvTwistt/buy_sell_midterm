@@ -109,6 +109,7 @@ router.get('/categories/:id1/listings/:id2', (req, res) => {
       buySellQueries.getListing(listingId, categoryId, db)
       .then((categoryListings) => {
         console.log(categoryListings)
+        categoryListings = categoryListings[0];
         const templateVars = {user:null, categoryListings, categories}
         res.render('buy_sell_listing_show', templateVars);
       })

@@ -29,7 +29,7 @@ const getListing = (listingId, categoryId, db) => {
   WHERE listings.id = $1
   AND listings.category_id = $2`, [listingId, categoryId])
   .then((response) => {
-    return response.rows[0];
+    return response.rows;
   })
   .catch((err) => {
     console.log(err.message);
@@ -105,7 +105,7 @@ const getCategoryForAddListing = (name, db) => {
   WHERE name = $1
   LIMIT 1`, [`${name}`])
   .then((response) => {
-    return response.rows[0];
+    return response.rows;
   })
   .catch((err) => {
     console.log(err.message);
