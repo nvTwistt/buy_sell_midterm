@@ -45,6 +45,7 @@ const allMessageRouter = () => {
     let listing_id_number = splitData[0];
     let buyer_id_number = splitData[1];
     const userID = req.session.user_id;
+    //redirect key is composed of the other persons id, your id and the listing number
     let redirectKey = buyer_id_number + userID + listing_id_number;
     const userDB = userCheck.checkUser(userID).then((data) => {
       return data;
@@ -86,7 +87,6 @@ const allMessageRouter = () => {
     let idObject;
     const getObject = async () => {
       idObject = await userDB;
-      console.log("WHAT: ", idObject);
       let dbID = idObject.id;
       if (user_id && parseInt(user_id) === parseInt(dbID)) {
         const bodyText = req.body.text;
