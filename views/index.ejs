@@ -64,22 +64,37 @@
         <!-- Container for error message box -->
         <section>
           <% for(let category in categories) { %>
-            <a href="/buy-sell/categories/<%= categories[category].id %>"
+            <a href="/buy-sell/categories/<%= categories[category].id %>">
             <div><%= categories[category].name %></div>
           <% } %>
             </a>
         </section>
 
-        <section>
-          <% for(let listing in listings) { %>
-            <a href="/buy-sell/categories/<%= listings[listing].category_id %>/listings/<%= listings[listing].id %>"
-            <div><%= listings[listing].title %></div>
-            <div><%= listings[listing].price %></div>
-            <div><%= listings[listing].description %></div>
-            <div><%= listings[listing].cover_photo_url %></div>
-            </a>
+
+
+        <% for (let listing in listings) { %>
+
+          <% if (listings[listing].active) { %>
+            <section>
+              <a href="/buy-sell/categories/<%= listings[listing].category_id %>/listings/<%= listings[listing].id %>">
+                <div><%= listings[listing].title %></div>
+                <div><%= listings[listing].price %></div>
+                <div><%= listings[listing].description %></div>
+                <div><%= listings[listing].cover_photo_url %></div>
+                </a>
+          </section>
+          <% } else { %>
+            <h1>SOLD</h1>
+            <a href="/buy-sell/categories/<%= listings[listing].category_id %>/listings/<%= listings[listing].id %>">
+              <div><%= listings[listing].title %></div>
+              <div><%= listings[listing].price %></div>
+              <div><%= listings[listing].description %></div>
+              <div>SOLD</div>
+              </a>
+          </section>
           <% } %>
-        </section>
+        <% } %>
+
 
         <section class="section content">
           <section class="new-tweet">
@@ -97,9 +112,11 @@
           </section>
         </section>
 
+
         <section class="section feature">
           <div class="for-prepending-tweets"></div>
         </section>
+
 
         <section class="section footer">GitHub:@Soliloqiuy</section>
 
