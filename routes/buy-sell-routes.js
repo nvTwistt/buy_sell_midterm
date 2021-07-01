@@ -111,9 +111,11 @@ const buySellRouter = (db) => {
       idObject = await userDB;
       let dbID = idObject.id;
       if (userID && parseInt(userID) === parseInt(dbID)) {
-        const buyerId = 5
+        console.log("userid",userID)
+        const buyerId = parseInt(userID)
         buySellQueries.getFavorites(buyerId, db)
           .then((favorites) => {
+            console.log(favorites)
             const templateVars = { user: null, favorites }
             res.render('buy_sell_favorites', templateVars);
           })
@@ -194,6 +196,7 @@ const buySellRouter = (db) => {
       }
     };
     getObject();
+
   })
 
   //GET /buy-sell/categories/:id
@@ -241,13 +244,12 @@ const buySellRouter = (db) => {
         const categoryId = req.params.id1;
         const listingId = req.params.id2;
 
-        console.log(categoryId, listingId)
 
         buySellQueries.getAllCategories(db)
           .then((categories) => {
             buySellQueries.getListing(listingId, categoryId, db)
               .then((categoryListings) => {
-                console.log(categoryListings)
+                categoryListings = categoryListings[0];
                 const templateVars = { user: null, categoryListings, categories }
                 res.render('buy_sell_listing_show', templateVars);
               })
@@ -316,3 +318,4 @@ const buySellRouter = (db) => {
 
 
 module.exports = buySellRouter;
+
