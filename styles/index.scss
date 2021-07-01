@@ -1,0 +1,113 @@
+/*
+ * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ * https://css-tricks.com/international-box-sizing-awareness-day/
+ * Do not modify these two selectors, please
+ */
+ html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/*
+ * Global layout stuff
+ */
+
+body {
+  width: 100%;
+  color: #545149;
+  background-color: white;
+  font-size: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+main.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  background-color: inherit;
+  margin: 0 auto;
+  color: black;
+  border-left: 1px solid lightgray;
+  padding-top: 1.5em;
+  a {
+    width: 100%;
+    text-decoration: none;
+
+  }
+}
+
+
+/*
+ * Additional CSS can be defined below or in other CSS files, as per instructions
+
+Responsive Layout Below
+ */
+/* MOBILE STYLES */
+ .main {
+  text-align: center;
+}
+
+.section {
+  line-height: 10px;
+}
+
+.menu {
+  display: flex;
+  line-height: 20px;
+}
+
+
+
+.content {
+  height: 200px;
+  width: 100%;
+  padding-top: 2em;
+  line-height: 1em;
+}
+
+.feature {
+  line-height: 1em;
+}
+
+.footer {
+  color: #e9c46a;
+  line-height: 100px;
+  width: 100%;
+}
+
+/* TABLET STYLES */
+@media only screen and (min-width: 768px) {
+  .main {
+    display: flex;
+    flex-direction: row;
+    padding-top: 80px ;
+  }
+
+  .feature {
+    display: flex;
+    width: 100%;
+    line-height: 30px;
+    font-size: 90%;
+  }
+
+  .content {
+    width: 66.7%;
+    float: right;
+    font-size: 80%;
+    padding-top: 4em;
+  }
+
+  .hero {
+    padding-left: 50px;
+    width: 25%;
+    height: 100%;
+    padding-top: 50px;
+  }
+
+
+}
+

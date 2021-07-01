@@ -1,6 +1,6 @@
 .posted-tweet {
   display: flex;
-  height:9.5em;
+  height: 9.5em;
   width: 100%;
   margin-top: 50px;
   border: 3px solid #494949;
@@ -38,7 +38,6 @@ article {
   padding-top: 5px;
   padding-bottom: 10px;
 }
-
 
 .content-text {
   display: flex;
