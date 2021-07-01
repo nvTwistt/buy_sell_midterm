@@ -3,15 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/styles/new-message.css">
+  <link rel="stylesheet" href="/styles/show-messages.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>TinyApp</title>
+  <!-- Bootstrap CSS -->
+  <title>Messages</title>
 </head>
 <body>
-  <%- include('partials/_header') %>
-  <main style="margin: 1em;">
+  <nav class="top">
+    <div class="left">
+      <span class="content-head">tweeter</span>
+    </div>
+    <div class="right">
+      <p class = "message-link"><b>Write </b> a new tweet</p>
+      <div id="tweet-click">
+        <i class="fa fa-angle-double-down"></i>
+      </div>
+    </div>
+  </nav>
+  <main class="container">
     <h3>My messages</h3>
+    <section class = "message-overview">
+      <% for(let content in messages) { %>
+        <div class="flex-grid">
+          <div class="col"><%= messages[content].receiver %></div>
+          <div class="col"><%= messages[content].date %></div>
+          <div class="col"><%= messages[content].listing_id %></div>
+          <div class="col"><form method="post" action='/messages' >
+            <button type="submit" class="btn btn-outline-primary" name="requiredData" value=<%=`${messages[content].listing_id},${messages[content].from_id}`%>> View </button>
+          </form></div>
+        </div>
+        <% } %>
+    </section>
     <table class="table">
       <thead>
         <tr>

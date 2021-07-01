@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  margin: 0% 5%;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  align-items: center;
+}
+
+.flex-grid {
+  display: flex;
+}
+
+.flex-grid .col {
+  flex: 1;
+}
+
+.message-overview {
+  margin-top: 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0.5em;
+  width: 70%;
+  background-color: #90F1EF;
+  outline-color: black;
+  outline-style: solid;
+  outline-width: 2px;
+}
