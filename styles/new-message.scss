@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+.messageForm {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.text {
+  width: 100%;
+  border: 3px solid black;
+  color: red;
+}
