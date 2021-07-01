@@ -34,6 +34,11 @@
 <!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
   <body>
     <main class="favorites-column-layout">
+
+      <% if (Object.keys(favorites).length === 0) { %>
+        <p class="empty-favorites">Add some listings to your favorites!</p>
+    <% } %>
+
       <% for (let favorite in favorites) { %>
 
         <% if (favorites[favorite].active) { %>

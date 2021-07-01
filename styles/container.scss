@@ -173,6 +173,11 @@
 
 .favorites-column-layout {
 
+  .empty-favorites {
+    display: flex;
+    justify-content: center;
+  }
+
   .display-delete-favorites {
     padding-right: 1.5em;
   }
@@ -187,5 +192,11 @@
 
   .avatar {
     padding-left: 2em;;
+  }
+}
+
+.category-main-page {
+  a {
+    text-decoration: none;
   }
 }
