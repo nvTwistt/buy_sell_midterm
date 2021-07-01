@@ -19,6 +19,7 @@ const buySellRouter = (db) => {
   // getObject();
 
   //GET /buy-sell
+  //remove user authentication
   router.get('/', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -46,6 +47,7 @@ const buySellRouter = (db) => {
   })
 
   //POST /buy-sell
+  // remove authentication
   router.post('/', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -55,6 +57,9 @@ const buySellRouter = (db) => {
     const getObject = async () => {
       idObject = await userDB;
       let dbID = idObject.id;
+      //change what we are checking for
+      //get the seller id from the listing then compare those two and if they are === then
+      // allow the user to post.
       if (userID && parseInt(userID) === parseInt(dbID)) {
         const sellerId = parseInt(userID);
         const listing = req.body;
@@ -79,6 +84,7 @@ const buySellRouter = (db) => {
   })
 
   //GET /buy-sell/new
+  //no need to change
   router.get('/new', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -101,6 +107,7 @@ const buySellRouter = (db) => {
   })
 
   //GET /buy-sell/favorites
+  //leave as is
   router.get('/favorites', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -127,6 +134,7 @@ const buySellRouter = (db) => {
   })
 
   //POST /buy-sell/favorites
+  //cross reference the user_id and the sessio
   router.post('/favorites', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -152,6 +160,7 @@ const buySellRouter = (db) => {
   })
 
   //DELETE /buy-sell/favorites/delete
+  //make sure favorites buyer_id = userID
   router.post('/favorites/delete', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -173,10 +182,10 @@ const buySellRouter = (db) => {
       }
     };
     getObject();
-
   })
 
   //GET /buy-sell/categories
+  //two cases for authenticated and not authenticated
   router.get('/categories', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -201,6 +210,7 @@ const buySellRouter = (db) => {
   })
 
   //GET /buy-sell/categories/:id
+  //double case check if else
   router.get('/categories/:id', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -232,6 +242,7 @@ const buySellRouter = (db) => {
 
 
   //GET /buy-sell/categories/:id/listings/:id
+  //double check with the if else
   router.get('/categories/:id1/listings/:id2', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -264,6 +275,7 @@ const buySellRouter = (db) => {
   })
 
   //DELETE /buy-sell/categories/:id/listings/:id
+  //cross referece with the seller id
   router.post('/categories/:id1/listings/:id2', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -290,6 +302,7 @@ const buySellRouter = (db) => {
   })
 
   //edit /buy-sell/categories/:id/listings/:id/edit
+  //cross reference session with seller id
   router.get('/categories/:id1/listings/:id2/edit', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
