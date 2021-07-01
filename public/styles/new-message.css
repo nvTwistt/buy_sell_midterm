@@ -185,11 +185,14 @@
   display: flex;
   height: 120px;
   width: 100%;
-  background-color: #4056A1;
-  color: #FFFFFF;
-  padding-right: 1.5em;
-  padding-left: 1.5em;
+  background-color: #264653;
   justify-content: space-between;
+  color: #f4a261;
+  font-family: 'Bungee', sans-serif;
+  padding-left: 1.0em;
+  padding-right: 1.0em;
+  padding-bottom: 0.5em;
+  font-size: 24px;
 }
 
 .left {
