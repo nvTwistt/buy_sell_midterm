@@ -17,12 +17,10 @@ const allMessageRouter = () => {
     let idObject;
     const getObject = async () => {
       idObject = await userDB;
-      console.log("WHAT: ", idObject);
       let dbID = idObject.id;
       messageQueries
         .getAllMessages(userID)
         .then((data) => {
-          console.log("content", data);
           const templateVars = {
             user_id: userID,
             messages: data,
@@ -48,7 +46,6 @@ const allMessageRouter = () => {
     let buyer_id_number = splitData[1];
     const userID = req.session.user_id;
     const userDB = userCheck.checkUser(userID).then((data) => {
-      console.log("data: ", data);
       return data;
     });
     let idObject;
