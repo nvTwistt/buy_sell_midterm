@@ -194,7 +194,6 @@ const buySellRouter = (db) => {
       }
     };
     getObject();
-
   })
 
   //GET /buy-sell/categories/:id

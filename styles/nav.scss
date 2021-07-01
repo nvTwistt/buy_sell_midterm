@@ -12,7 +12,7 @@ nav {
 
 nav > span {
   display: flex;
-  color: #f4a261;
+  color:#f4a261;
   font-family: 'Bungee', sans-serif;
   padding-left: 1.0em;
   padding-right: 1.0em;
@@ -20,12 +20,13 @@ nav > span {
   flex-direction: column;
 }
 
+
 .logo span {
   display: inline-block;
   font-family: 'Source Sans Pro';
 }
 
-.logo i {
+.logo i{
   color: #e76f51;
   font-size: 0.75em;
   padding-top: 0.5em;
@@ -34,13 +35,9 @@ nav > span {
   animation-iteration-count: infinite;
 }
 
-@keyframes bounce {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, 10px, 0);
-  }
+@keyframes bounce{
+  from { transform: translate3d(0, 0, 0);}
+  to { transform: translate3d(0, 10px, 0);}
 }
 
 .logo {
