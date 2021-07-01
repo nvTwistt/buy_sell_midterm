@@ -196,3 +196,19 @@
 .category-main-page a {
   text-decoration: none;
 }
+
+.category-listings-page {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  background-color: inherit;
+  margin: 0 auto;
+  color: black;
+  border-left: 1px solid lightgray;
+  padding-top: 1.5em;
+}
+
+.category-listings-page a {
+  width: 100%;
+  text-decoration: none;
+}
