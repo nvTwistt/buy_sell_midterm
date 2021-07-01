@@ -29,6 +29,8 @@ const allMessageRouter = () => {
           };
           if (userID && parseInt(userID) === parseInt(dbID)) {
             res.render("messages_show", templateVars);
+          } else {
+            alert("You do not have permission to perform this action!");
           }
         })
         .catch((err) => {
@@ -68,6 +70,8 @@ const allMessageRouter = () => {
             buyer: data.rows[0].name,
           };
         });
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -138,6 +142,8 @@ const allMessageRouter = () => {
             console.log(err);
           });
         res.redirect("/messages/views");
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -178,6 +184,8 @@ const allMessageRouter = () => {
               console.log(err);
             });
         
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();

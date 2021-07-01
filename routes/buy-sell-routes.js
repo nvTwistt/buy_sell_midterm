@@ -38,6 +38,8 @@ const buySellRouter = (db) => {
                 res.render('index', templateVars);
               })
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -68,6 +70,8 @@ const buySellRouter = (db) => {
                 res.redirect('/buy-sell')
               })
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -88,6 +92,8 @@ const buySellRouter = (db) => {
         const user_id = req.session.user_id;
         console.log(user_id);
         res.render('buy_sell_new')
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -111,6 +117,8 @@ const buySellRouter = (db) => {
             const templateVars = { user: null, favorites }
             res.render('buy_sell_favorites', templateVars);
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -133,6 +141,8 @@ const buySellRouter = (db) => {
           .then(() => {
             res.redirect('/buy-sell/favorites');
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -155,6 +165,8 @@ const buySellRouter = (db) => {
           .then(() => {
             res.redirect('/buy-sell/favorites');
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -177,6 +189,8 @@ const buySellRouter = (db) => {
             const templateVars = { user: null, categories }
             res.render('buy_sell_categories', templateVars);;
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -205,6 +219,8 @@ const buySellRouter = (db) => {
                 res.render('buy_sell_categories_show', templateVars);
               })
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -237,6 +253,8 @@ const buySellRouter = (db) => {
                 res.render('buy_sell_listing_show', templateVars);
               })
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -260,6 +278,8 @@ const buySellRouter = (db) => {
           .then(() => {
             res.redirect('/buy-sell');
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
@@ -284,6 +304,8 @@ const buySellRouter = (db) => {
           .then(() => {
             res.redirect('/buy-sell');
           })
+      } else {
+        alert("You do not have permission to perform this action!");
       }
     };
     getObject();
