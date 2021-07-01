@@ -21,15 +21,6 @@ const buySellRouter = (db) => {
   //GET /buy-sell
   //remove user authentication
   router.get('/', (req, res) => {
-    const userID = req.session.user_id;
-    const userDB = helperQueries.checkUser(userID).then((data) => {
-      return data;
-    });
-    let idObject;
-    const getObject = async () => {
-      idObject = await userDB;
-      let dbID = idObject.id;
-      if (userID && parseInt(userID) === parseInt(dbID)) {
         buySellQueries.getAllCategories(db)
           .then((categories) => {
             buySellQueries.getAllListings(db)
@@ -39,11 +30,6 @@ const buySellRouter = (db) => {
                 res.render('index', templateVars);
               })
           })
-      } else {
-        alert("You do not have permission to perform this action!");
-      }
-    };
-    getObject();
   })
 
   //POST /buy-sell
@@ -57,9 +43,6 @@ const buySellRouter = (db) => {
     const getObject = async () => {
       idObject = await userDB;
       let dbID = idObject.id;
-      //change what we are checking for
-      //get the seller id from the listing then compare those two and if they are === then
-      // allow the user to post.
       if (userID && parseInt(userID) === parseInt(dbID)) {
         const sellerId = parseInt(userID);
         const listing = req.body;
@@ -134,7 +117,7 @@ const buySellRouter = (db) => {
   })
 
   //POST /buy-sell/favorites
-  //cross reference the user_id and the sessio
+  //cross reference the user_id from favorites and the session_id
   router.post('/favorites', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -144,16 +127,23 @@ const buySellRouter = (db) => {
     const getObject = async () => {
       idObject = await userDB;
       let dbID = idObject.id;
-      if (userID && parseInt(userID) === parseInt(dbID)) {
-        const listingId = Object.keys(req.body)[0];
-        const listing = { buyer_id: parseInt(userID), listing_id: listingId };
-        buySellQueries.addFavorite(listing, db)
-          .then(() => {
-            res.redirect('/buy-sell/favorites');
-          })
-      } else {
-        alert("You do not have permission to perform this action!");
-      }
+      const listingId = Object.keys(req.body)[0];
+      buySellQueries.getBuyerID(listingId,parseInt(dbID))
+      .then((data) => {
+        let favorite_user_id = data[0].buyer_id;
+        if (userID && parseInt(favorite_user_id) === parseInt(dbID)) {
+          const listing = { buyer_id: parseInt(userID), listing_id: listingId };
+          buySellQueries.addFavorite(listing, db)
+            .then(() => {
+              res.redirect('/buy-sell/favorites');
+            })
+        } else {
+          alert("You do not have permission to perform this action!");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     };
     getObject();
 

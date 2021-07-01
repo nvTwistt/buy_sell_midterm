@@ -12,6 +12,20 @@ const getAllListings = (db) => {
   });
 };
 
+const getBuyerID = (listing_id, buyer_id) => {
+  return db.query(`
+  SELECT buyer_id
+  FROM favorites
+  WHERE id = $1 AND buyer_id = $2;`
+  ,[listing_id, buyer_id])
+  .then((response) => {
+    return response.rows;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 //create function to query all categories in database
 const getAllCategories = (db) => {
   return db.query(`SELECT id, name FROM category_list`)
@@ -144,7 +158,8 @@ module.exports = {
   getCategoryForAddListing,
   deleteFavoriteListing,
   deleteListing,
-  setActive
+  setActive,
+  getBuyerID
 };
 
 

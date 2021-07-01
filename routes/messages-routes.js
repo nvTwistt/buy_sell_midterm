@@ -90,6 +90,7 @@ const allMessageRouter = () => {
       let dbID = idObject.id;
       if (user_id && parseInt(user_id) === parseInt(dbID)) {
         const bodyText = req.body.text;
+        console.log("body: ", bodyText);
         let returnData = req.body;
         let requiredData = returnData["requiredData"];
         let splitData = requiredData.split(",");
