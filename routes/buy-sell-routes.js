@@ -61,7 +61,7 @@ const buySellRouter = (db) => {
       //get the seller id from the listing then compare those two and if they are === then
       // allow the user to post.
       if (userID && parseInt(userID) === parseInt(dbID)) {
-        const sellerId = 3;
+        const sellerId = parseInt(userID);
         const listing = req.body;
         listing['seller_id'] = sellerId;
         console.log(listing.category)
@@ -146,7 +146,7 @@ const buySellRouter = (db) => {
       let dbID = idObject.id;
       if (userID && parseInt(userID) === parseInt(dbID)) {
         const listingId = Object.keys(req.body)[0];
-        const listing = { buyer_id: 5, listing_id: listingId };
+        const listing = { buyer_id: parseInt(userID), listing_id: listingId };
         buySellQueries.addFavorite(listing, db)
           .then(() => {
             res.redirect('/buy-sell/favorites');
@@ -166,6 +166,7 @@ const buySellRouter = (db) => {
     const userDB = helperQueries.checkUser(userID).then((data) => {
       return data;
     });
+  //Check favorites buyer_id = session id
     let idObject;
     const getObject = async () => {
       idObject = await userDB;
@@ -280,6 +281,7 @@ const buySellRouter = (db) => {
     const userDB = helperQueries.checkUser(userID).then((data) => {
       return data;
     });
+    //cross reference session id with seller id
     let idObject;
     const getObject = async () => {
       idObject = await userDB;
@@ -306,6 +308,7 @@ const buySellRouter = (db) => {
     const userDB = helperQueries.checkUser(userID).then((data) => {
       return data;
     });
+    //cross reference session id with seller id
     let idObject;
     const getObject = async () => {
       idObject = await userDB;
