@@ -29,11 +29,15 @@ const allMessageRouter = () => {
         .then((data) => {
           console.log("this is data: ", data);
           for (const items of data) {
+            console.log("index: ", data.indexOf(items));
             console.log("cool: ", items.to_id, userID);
             if (parseInt(items.to_id) === parseInt(userID)) {
               console.log("they are the same");
+              let objectIndex = data.indexOf(items);
               items["with"] = items.receiver;
+              data.splice(objectIndex, 1);
             } else {
+              console.log("item we are in: ", items);
               items["with"] = items.sender;
             }
           }
