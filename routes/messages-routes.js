@@ -5,6 +5,7 @@ const router = express.Router();
 const messageQueries = require("../db/queries/message-queries");
 const userCheck = require("../db/queries/helper-queries-and-functions");
 const db = require("../lib/db-connection");
+const { parse } = require("dotenv");
 const sessionDatabase = {};
 module.exports = {
   sessionDatabase
@@ -29,15 +30,22 @@ const allMessageRouter = () => {
         .then((data) => {
           console.log("this is data: ", data);
           for (const items of data) {
+            console.log("index: ", data.indexOf(items));
             console.log("cool: ", items.to_id, userID);
             if (parseInt(items.to_id) === parseInt(userID)) {
               console.log("they are the same");
+              console.log("item to remove: ", items);
+              let objectIndex = data.indexOf(items);
               items["with"] = items.receiver;
+              data.splice(objectIndex, 1);
             } else {
+              console.log("item we are in: ", items);
               items["with"] = items.sender;
             }
           }
-          console.log("fixed data: ", data);
+          for (const obj of data) {
+            console.log("object: ",data[obj]);
+          }
           const templateVars = {
             user_id: userID,
             messages: data,
@@ -171,6 +179,7 @@ const allMessageRouter = () => {
           let splitData = requiredData.split(",");
           let first_id = splitData[0];
           let second_id = splitData[1];
+          let list_id = splitData[2];
           let buyer_id;
           if (first_id === user_id && second_id !== user_id) {
             buyer_id = second_id;
@@ -194,7 +203,7 @@ const allMessageRouter = () => {
             ":" +
             current.getSeconds();
           let dateTime = cDate + " " + cTime;
-          let listing_id_number = sessionDatabase[user_id].listing;
+          let listing_id_number = parseInt(list_id);
           let queryData = [
             parseInt(user_id),
             parseInt(buyer_id),
