@@ -1,5 +1,19 @@
-const splitData = function (array) {
-  const split = array.split(",");
+/**
+ * Function split data takes in a string, splits it by "," and returns the results
+ * in an object.
+ * @param {*} string
+ * @returns object of strings
+ * 
+ * Example:
+ *  string = "1,2,3"
+ * Returns: {
+ *  first_id: 1,
+ *  second_id: 2,
+ *  list_id: 3
+ *  }
+ */
+const splitData = function (string) {
+  const split = string.split(",");
   let results = {
     first_id: split[0],
     second_id: split[1],
@@ -8,6 +22,10 @@ const splitData = function (array) {
   return results;
 };
 
+/**
+ * Function calls the date function then calculates the current date and time
+ * @returns datetime
+ */
 const getDate = function () {
   const current = new Date();
   const cDate =
@@ -37,8 +55,22 @@ const getBuyer = function (messageIdentifier, user_id) {
   }
 };
 
-const identifyRoles = function (array) {
-  const split = array.split(",");
+/**
+ * Function split data takes in a string, splits it by "," and returns the results
+ * in an object.
+ * @param {*} string
+ * @returns object of strings
+ * 
+ * Example:
+ *  string = "1,2,3"
+ * Returns: {
+ *  first_id: 1,
+ *  second_id: 2,
+ *  list_id: 3
+ *  }
+ */
+const identifyRoles = function (string) {
+  const split = string.split(",");
   let results = {
     listing_id_number: split[0],
     buyer_id_number: split[1],
