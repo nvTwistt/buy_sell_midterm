@@ -34,7 +34,8 @@ const buySellRouter = (db) => {
           .then((categories) => {
             buySellQueries.getAllListings(db)
               .then((listings) => {
-                const templateVars = { user: null, listings, categories }
+                const user_id = parseInt(userID)
+                const templateVars = { idObject, user_id, listings, categories }
                 console.log(listings)
                 res.render('index', templateVars);
               })
@@ -122,8 +123,8 @@ const buySellRouter = (db) => {
         const buyerId = parseInt(userID)
         buySellQueries.getFavorites(buyerId, db)
           .then((favorites) => {
-            console.log(favorites)
-            const templateVars = { user: null, favorites }
+            const user_id = parseInt(userID)
+            const templateVars = { user_id, idObject, favorites }
             res.render('buy_sell_favorites', templateVars);
           })
       } else {
@@ -198,7 +199,8 @@ const buySellRouter = (db) => {
       if (userID && parseInt(userID) === parseInt(dbID)) {
         buySellQueries.getAllCategories(db)
           .then((categories) => {
-            const templateVars = { user: null, categories }
+            const user_id = parseInt(userID)
+            const templateVars = { user_id, idObject, categories }
             res.render('buy_sell_categories', templateVars);;
           })
       } else {
@@ -228,7 +230,8 @@ const buySellRouter = (db) => {
             buySellQueries.getCategoryListings(categoryId, db)
               .then((category) => {
                 console.log(category)
-                const templateVars = { user: null, category, categories }
+                const user_id = parseInt(userID)
+                const templateVars = { user_id, idObject, category, categories }
                 res.render('buy_sell_categories_show', templateVars);
               })
           })
@@ -262,7 +265,8 @@ const buySellRouter = (db) => {
             buySellQueries.getListing(listingId, categoryId, db)
               .then((categoryListings) => {
                 categoryListings = categoryListings[0];
-                const templateVars = { user: null, categoryListings, categories }
+                const user_id = parseInt(userID);
+                const templateVars = { user_id, idObject, categoryListings, categories }
                 res.render('buy_sell_listing_show', templateVars);
               })
           })

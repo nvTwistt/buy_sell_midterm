@@ -24,6 +24,7 @@ const allMessageRouter = () => {
           const templateVars = {
             user_id: userID,
             messages: data,
+            idObject
           };
           if (userID && parseInt(userID) === parseInt(dbID)) {
             res.render("messages_show", templateVars);
@@ -175,6 +176,7 @@ const allMessageRouter = () => {
                 user_id: userID,
                 messages: data,
                 buyerName: buyer_name,
+                idObject
               };
               res.render("messages", templateVars);
             })
