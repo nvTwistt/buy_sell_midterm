@@ -5,68 +5,55 @@ const router = express.Router();
 const messageQueries = require("../db/queries/message-queries");
 const userCheck = require("../db/queries/helper-queries-and-functions");
 const db = require("../lib/db-connection");
-const { parse } = require("dotenv");
 const sessionDatabase = {};
-module.exports = {
-  sessionDatabase
-};
 const allMessageRouter = () => {
   //GET /posts
   router.get("/", (req, res) => {
     const userID = req.session.user_id;
-    if(!userID) {
+    if (!userID) {
       res.send("You do not have permission to perform this action!");
     } else {
-      console.log("lets go 1");
-    const userDB = userCheck.checkUser(userID).then((data) => {
-      return data;
-    });
-    let idObject;
-    const getObject = async () => {
-      idObject = await userDB;
-      let dbID = idObject.id;
-      messageQueries
-        .getAllMessages(userID)
-        .then((data) => {
-          console.log("this is data: ", data);
-          for (const items of data) {
-            console.log("index: ", data.indexOf(items));
-            console.log("cool: ", items.to_id, userID);
-            if (parseInt(items.to_id) === parseInt(userID)) {
-              console.log("they are the same");
-              console.log("item to remove: ", items);
-              let objectIndex = data.indexOf(items);
-              items["with"] = items.receiver;
-              data.splice(objectIndex, 1);
-            } else {
-              console.log("item we are in: ", items);
-              items["with"] = items.sender;
-            }
-          }
-          for (const obj of data) {
-            let keys = Object.keys(obj);
-            if(!keys.includes('with')) {
-              if (parseInt(userID) === parseInt(obj.from_id)) {
-                obj["with"] = obj.sender;
+      const userDB = userCheck.checkUser(userID).then((data) => {
+        return data;
+      });
+      let idObject;
+      const getObject = async () => {
+        idObject = await userDB;
+        let dbID = idObject.id;
+        messageQueries
+          .getAllMessages(userID)
+          .then((data) => {
+            if (userID && parseInt(userID) === parseInt(dbID)) {
+            for (const items of data) {
+              if (parseInt(items.to_id) === parseInt(userID)) {
+                let objectIndex = data.indexOf(items);
+                items["with"] = items.receiver;
+                data.splice(objectIndex, 1);
+              } else {
+                items["with"] = items.sender;
               }
             }
-          }
-          const templateVars = {
-            user_id: userID,
-            messages: data,
-            idObject
-          };
-          if (userID && parseInt(userID) === parseInt(dbID)) {
-            res.render("messages_show", templateVars);
-          } else {
-            alert("You do not have permission to perform this action!");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getObject();
+            for (const obj of data) {
+              let keys = Object.keys(obj);
+              if (!keys.includes('with')) {
+                if (parseInt(userID) === parseInt(obj.from_id)) {
+                  obj["with"] = obj.sender;
+                }
+              }
+            }
+            const templateVars = {
+              user_id: userID,
+              messages: data,
+              idObject
+            };
+              res.render("messages_show", templateVars);
+            } 
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      getObject();
     }
 
 
@@ -74,92 +61,66 @@ const allMessageRouter = () => {
 
   router.post("/", (req, res) => {
     const userID = req.session.user_id;
-    if(!userID) {
+    if (!userID) {
       res.send("You do not have permission to perform this action!");
     } else {
-      let returnData = req.body;
-    let requiredData = returnData["requiredData"];
-    let splitData = requiredData.split(",");
-    console.log("this is the split data: ",splitData);
-    let listing_id_number = splitData[0];
-    let buyer_id_number = splitData[1];
-    let seller_id = splitData[2];
-    const userID = req.session.user_id;
-    console.log("this is the userID: ",userID);
-    let redirectKey;
-    //userID is the buyer
-    if (userID === buyer_id_number) {
-      redirectKey = userID + seller_id + listing_id_number;
-      console.log("we are here");
+      const returnData = req.body;
+      const requiredData = returnData["requiredData"];
+      const splitData = requiredData.split(",");
+      const listing_id_number = splitData[0];
+      const buyer_id_number = splitData[1];
+      const seller_id = splitData[2];
       delete req.session.seller_id
       req.session.seller_id = seller_id;
-      const userDB = userCheck.checkUser(userID).then((data) => {
-        return data;
-      });
-      let idObject;
-      const getObject = async () => {
-        idObject = await userDB;
-        let dbID = idObject.id;
-        if (userID && parseInt(userID) === parseInt(dbID)) {
-          db.query(
-            `
-          SELECT users.name
-          FROM users
-          WHERE id = $1
-          `,
-            [seller_id]
-          ).then((data) => {
-            sessionDatabase[seller_id] = {
-              listing: listing_id_number,
-              id: buyer_id_number,
-              buyer: data.rows[0].name,
-            };
-            console.log("this is the session: ",sessionDatabase);
-            console.log("redirect key: ", redirectKey);
-          });
-        } else {
-          res.send("You do not have permission to perform this action!");
-        }
-      };
-      getObject();
-    } else {
-      delete req.session.seller_id
-      req.session.seller_id = seller_id;
-      redirectKey = buyer_id_number + userID + listing_id_number;
-      const userDB = userCheck.checkUser(userID).then((data) => {
-        return data;
-      });
-      let idObject;
-      const getObject = async () => {
-        idObject = await userDB;
-        let dbID = idObject.id;
-        if (userID && parseInt(userID) === parseInt(dbID)) {
-          db.query(
-            `
-          SELECT users.name
-          FROM users
-          WHERE id = $1
-          `,
-            [buyer_id_number]
-          ).then((data) => {
-            sessionDatabase[userID] = {
-              listing: listing_id_number,
-              id: buyer_id_number,
-              buyer: data.rows[0].name,
-            };
-            console.log("this is the session: ",sessionDatabase);
-            console.log("redirect key: ", redirectKey);
-          });
-        } else {
-          res.send("You do not have permission to perform this action!");
-        }
-      };
-      getObject();
+      let redirectKey;
+      if (userID === buyer_id_number) {
+        redirectKey = userID + seller_id + listing_id_number;
+        const userDB = userCheck.checkUser(userID).then((data) => {
+          return data;
+        });
+        const getObject = async () => {
+          const idObject = await userDB;
+          const dbID = idObject.id;
+          if (userID && parseInt(userID) === parseInt(dbID)) {
+            messageQueries.getUserName(seller_id)
+            .then((data) => {
+              sessionDatabase[seller_id] = {
+                listing: listing_id_number,
+                id: buyer_id_number,
+                buyer: data[0].name,
+              };
+            });
+          } else {
+            res.send("You do not have permission to perform this action!");
+          }
+        };
+        getObject();
+      } else {
+        redirectKey = buyer_id_number + userID + listing_id_number;
+        const userDB = userCheck.checkUser(userID).then((data) => {
+          return data;
+        });
+        const getObject = async () => {
+          const idObject = await userDB;
+          const dbID = idObject.id;
+          if (userID && parseInt(userID) === parseInt(dbID)) {
+            messageQueries.getUserName(buyer_id_number)
+            .then((data) => {
+              sessionDatabase[userID] = {
+                listing: listing_id_number,
+                id: buyer_id_number,
+                buyer: data[0].name,
+              };
+            });
+          } else {
+            res.send("You do not have permission to perform this action!");
+          }
+        };
+        getObject();
+      }
+      //redirect key is composed of the other persons id, your id and the listing number
+      res.redirect(`/messages/${redirectKey}`);
     }
-    //redirect key is composed of the other persons id, your id and the listing number
-    res.redirect(`/messages/${redirectKey}`);
-    }
-
   });
 
   router.post("/:id", (req, res) => {
@@ -246,20 +207,20 @@ const allMessageRouter = () => {
       res.send("You don't have permission to perform this action!");
     } else {
       console.log("lets go 2");
-    const userDB = userCheck.checkUser(userID).then((data) => {
-      return data;
-    });
-    let idObject;
-    const getObject = async () => {
-      idObject = await userDB;
-      let dbID = idObject.id;
-      if (userID && parseInt(userID) === parseInt(dbID)) {
-        let listing_id_number = sessionDatabase[sellerID].listing;
-        let buyer_id_number = sessionDatabase[sellerID].id;
-        let buyer_name = sessionDatabase[sellerID].buyer;
-        let query_params = [req.session.seller_id, listing_id_number, buyer_id_number];
-        console.log("parameters: ", query_params);
-        let name = req.session.user_name;
+      const userDB = userCheck.checkUser(userID).then((data) => {
+        return data;
+      });
+      let idObject;
+      const getObject = async () => {
+        idObject = await userDB;
+        let dbID = idObject.id;
+        if (userID && parseInt(userID) === parseInt(dbID)) {
+          let listing_id_number = sessionDatabase[sellerID].listing;
+          let buyer_id_number = sessionDatabase[sellerID].id;
+          let buyer_name = sessionDatabase[sellerID].buyer;
+          let query_params = [req.session.seller_id, listing_id_number, buyer_id_number];
+          console.log("parameters: ", query_params);
+          let name = req.session.user_name;
           messageQueries
             .getConversation(query_params)
             .then((data) => {
@@ -281,11 +242,11 @@ const allMessageRouter = () => {
               console.log(err);
             });
 
-      } else {
-        res.send("You do not have permission to perform this action!");
-      }
-    };
-    getObject();
+        } else {
+          res.send("You do not have permission to perform this action!");
+        }
+      };
+      getObject();
     }
 
   });

@@ -63,7 +63,7 @@ const getConversation = (query_params) => {
 };
 
 const insertNewMessage = (queryData) => {
-  db.query(`
+  return db.query(`
   INSERT INTO messages
   (to_id, from_id, time_sent, message, listing_id) 
   VALUES ($2,$1, $3, $4, $5) RETURNING *;
@@ -76,12 +76,12 @@ const insertNewMessage = (queryData) => {
   })
 };
 
-const getBuyersName = (buyerID) => {
-  db.query(`
+const getUserName = (userID) => {
+  return db.query(`
   SELECT users.name
   FROM users
   WHERE id = $1; 
-  `, [buyerID])
+  `, [userID])
   .then((data) => {
     return data.rows;
   })
@@ -91,5 +91,5 @@ module.exports = {
   getAllMessages,
   getConversation,
   insertNewMessage,
-  getBuyersName
+  getUserName
 };
