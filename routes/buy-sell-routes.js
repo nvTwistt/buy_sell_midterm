@@ -489,7 +489,7 @@ const buySellRouter = (db) => {
           let first_id = splitData[0];
           let second_id = splitData[1];
           let listing = splitData[2];
-          let redirectKey = second_id + first_id + listing;
+          let redirectKey = first_id + second_id + listing;
           let buyer_id;
           if (first_id === user_id && second_id !== user_id) {
             buyer_id = second_id;

@@ -55,8 +55,8 @@ const allMessageRouter = () => {
     };
     getObject();
     }
-    
-    
+
+
   });
 
   router.post("/", (req, res) => {
@@ -146,7 +146,7 @@ const allMessageRouter = () => {
     //redirect key is composed of the other persons id, your id and the listing number
     res.redirect(`/messages/${redirectKey}`);
     }
-    
+
   });
 
   router.post("/:id", (req, res) => {
@@ -222,7 +222,7 @@ const allMessageRouter = () => {
       };
       getObject();
     }
-    
+
   });
   router.get("/:id", (req, res) => {
     const userID = req.session.user_id;
@@ -274,7 +274,7 @@ const allMessageRouter = () => {
     };
     getObject();
     }
-    
+
   });
   return router;
 };

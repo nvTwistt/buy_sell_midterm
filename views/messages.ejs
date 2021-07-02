@@ -19,11 +19,11 @@
     <%=console.log("messages: ", messages)%>
     <h3 class="title"><%= userName%>'s Messages</h3>
     <H6>Send a message to <%=buyerName%></H6>
-    <form class="messageForm" method="POST" action="/messages/views">
+    <form class="messageForm" method="POST" action="/messages/:id">
       <textarea placeholder="Type your message here." name = "text" id="message-text" class="text"></textarea>
       <br>
       <div class = "submission">
-        <button id="submissionButton" class="messageButton" type="submit" name="requiredData" value=<%=`${messages[0].to_id},${messages[0].from_id}`%>>Send Message</button>
+        <button id="submissionButton" class="messageButton" type="submit" name="requiredData" value=<%=`${messages[0].to_id},${messages[0].from_id},${messages[0].listing_id}`%>>Send Message</button>
       </div>
     </form>
     <div class="messagecontainer">

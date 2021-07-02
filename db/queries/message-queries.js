@@ -3,12 +3,13 @@ const db = require('../../lib/db-connection');
 
 const getAllMessages = (userID) => {
   return db.query(`
-  SELECT DISTINCT a.to_id, a.from_id, a.sender, a.receiver, a.date, a.listing_id
+  SELECT DISTINCT a.to_id, a.from_id, a.sender, a.receiver, a.title, a.listing_id
   FROM (
     SELECT messages.to_id,
     messages.from_id,
     messages.time_sent,
     messages.message,
+    listings.title,
     MAX(DATE(messages.time_sent)) AS date,
     MAX(messages.time_sent::time) AS time,
     messages.listing_id, senders.name AS sender, receivers.name AS receiver,
@@ -22,7 +23,7 @@ const getAllMessages = (userID) => {
     messages.time_sent,
     messages.listing_id,
     senders.name, receivers.name,
-    messages.message
+    messages.message, listings.title
   ORDER BY date DESC, time DESC) a;
 `,[userID])
   .then((response) => {

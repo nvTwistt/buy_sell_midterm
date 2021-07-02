@@ -12,14 +12,24 @@
   <title>Messages</title>
 </head>
 <body>
-
+  <nav class="top">
+    <div class="left">
+      <a class="content-head">tweeter</a>
+    </div>
+    <div class="right">
+      <p class = "message-link"><b>Write </b> a new tweet</p>
+      <div id="tweet-click">
+        <i class="fa fa-angle-double-down"></i>
+      </div>
+    </div>
+  </nav>
   <main class="container">
     <h3>My messages</h3>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">With</th>
-          <th scope="col">Date</th>
+          <th scope="col">Listing Title</th>
           <th scope="col">Listing Id</th>
           <th scope="col">View</th>
         </tr>
@@ -29,7 +39,7 @@
           <%= console.log("This is who: ", messages[content].with) %>
           <tr>
             <td><%= messages[content].with %></td>
-            <td><%= messages[content].date %></td>
+            <td><%= messages[content].title %></td>
             <td><%= messages[content].listing_id %></td>
             <td>
               <form method="post" action='/messages' >
