@@ -12,13 +12,28 @@ const getAllListings = (db) => {
   });
 };
 
-const getBuyerID = (listing_id, buyer_id) => {
+const getBuyerID = (listing_id, buyer_id, db) => {
   return db.query(`
   SELECT buyer_id
   FROM favorites
   WHERE id = $1 AND buyer_id = $2;`
   ,[listing_id, buyer_id])
   .then((response) => {
+    
+    return response.rows;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+const favoriteCheck = (listing_id, buyer_id, db) => {
+  return db.query(`
+  SELECT *
+  FROM favorites
+  WHERE listing_id = $1 AND buyer_id = $2`
+  ,[listing_id, buyer_id])
+  .then((response) => {
+    console.log("response:", response.rows);
     return response.rows;
   })
   .catch((err) => {
@@ -159,7 +174,8 @@ module.exports = {
   deleteFavoriteListing,
   deleteListing,
   setActive,
-  getBuyerID
+  getBuyerID,
+  favoriteCheck
 };
 
 
