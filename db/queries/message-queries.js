@@ -68,9 +68,6 @@ const insertNewMessage = (queryData) => {
   (to_id, from_id, time_sent, message, listing_id) 
   VALUES ($2,$1, $3, $4, $5) RETURNING *;
   `, queryData)
-  .then((data) => {
-    console.log(data);
-  })
   .catch((err) => {
     console.log(err);
   })
