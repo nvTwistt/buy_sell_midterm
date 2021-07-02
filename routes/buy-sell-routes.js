@@ -20,17 +20,42 @@ const buySellRouter = (db) => {
   // };
   // getObject();
 
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  }
+
   //GET /buy-sell
   //remove user authentication
   router.get('/', (req, res) => {
     const userID = req.session.user_id;
+
+
+    let rand1;
+    let rand2;
+    let rand3;
+    let rand4;
+
+
     if (!userID) {
       buySellQueries.getAllCategories(db)
         .then((categories) => {
           buySellQueries.getAllListings(db)
             .then((listings) => {
-              const templateVars = { user_id: null, listings, categories}
-              console.log(listings)
+
+              let min = 0;
+              let max = listings.length;
+
+              while (rand1 === rand2 || rand1 === rand3 || rand1 === rand4 || rand2 === rand3 || rand2 === rand4 || rand3 === rand4) {
+                rand1 = getRandomInt(min, max);
+                rand2 = getRandomInt(min, max);
+                rand3 = getRandomInt(min, max);
+                rand4 = getRandomInt(min, max);
+              }
+
+
+              const templateVars = { rand1, rand2, rand3, rand4, user_id: null, listings, categories}
               res.render('index', templateVars);
             })
         })
@@ -41,12 +66,24 @@ const buySellRouter = (db) => {
       let idObject;
       const getObject = async () => {
         idObject = await userDB;
-        
+
         buySellQueries.getAllCategories(db)
         .then((categories) => {
           buySellQueries.getAllListings(db)
             .then((listings) => {
-              const templateVars = { user_id: idObject, listings, categories}
+
+              let min = 0;
+              let max = listings.length;
+
+              while (rand1 === rand2 || rand1 === rand3 || rand1 === rand4 || rand2 === rand3 || rand2 === rand4 || rand3 === rand4) {
+                rand1 = getRandomInt(min, max);
+                rand2 = getRandomInt(min, max);
+                rand3 = getRandomInt(min, max);
+                rand4 = getRandomInt(min, max);
+              }
+
+
+              const templateVars = { rand1, rand2, rand3, rand4, user_id: idObject, listings, categories}
               console.log(listings)
               res.render('index', templateVars);
             })
@@ -381,7 +418,7 @@ const buySellRouter = (db) => {
                 const templateVars = {user_id, idObject}
                 res.redirect('/buy-sell');
               })
-          } 
+          }
         })
       };
       getObject();
@@ -495,7 +532,7 @@ const buySellRouter = (db) => {
       };
       getObject();
     }
-    
+
   });
 
   return router;

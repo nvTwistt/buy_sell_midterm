@@ -251,16 +251,94 @@
 }
 
 .listings-page {
+  button {
+    display: flex;
+    height:2em;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    color: black;
+    background: radial-gradient(circle, lightgray, white);
+    margin-top: 30px;
+  }
+
+  .listing-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
   width: 100%
 }
 
 .index-features {
   display: flex;
-  section {
-    width: 10em;
-  }
-  div {
-    height: 15em;
+  margin-bottom: 80px;
+
+  img {
+  width: 300px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background: radial-gradient(circle, purple, white);
+  padding: 0.1em;
+  height: 15em;
   }
 
+
+  section {
+    height: 100%;
+  }
+
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  padding-top: 30px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 85%;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  height: 3em;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext {
+  top: 6em;
+  left: 7%;
+}
+
+.listings-cover {
+  margin-top: 50px;
+  margin-left: 100px;
+  img {
+    height: 500px;
+    width: 700px;
+  }
+}
+
+
+.listings-cover-sold {
+  font-size: 100px;
+  color: red;
+}
+
+display-left-sold-sold {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  img {
+    height: 8em;
+  }
 }

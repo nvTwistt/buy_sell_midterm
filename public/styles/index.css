@@ -27,7 +27,7 @@ main.container {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 65%;
+  width: 90%;
   background-color: inherit;
   margin: 0 auto;
   color: black;
@@ -96,9 +96,11 @@ Responsive Layout Below
     padding-top: 4em;
   }
   .hero {
-    padding-left: 50px;
+    padding-left: 1.5em;
     width: 25%;
     height: 100%;
     padding-top: 50px;
+    padding-right: 1.5em;
+    font-size: 60%;
   }
 }
