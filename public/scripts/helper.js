@@ -36,4 +36,14 @@ const getBuyer = function (messageIdentifier, user_id) {
     return messageIdentifier.first_id;
   }
 };
-module.exports = { splitData, getDate, getBuyer };
+
+const identifyRoles = function (array) {
+  const split = array.split(",");
+  let results = {
+    listing_id_number: split[0],
+    buyer_id_number: split[1],
+    sellerIdNumber: split[2],
+  };
+  return results;
+}
+module.exports = { splitData, getDate, getBuyer, identifyRoles };

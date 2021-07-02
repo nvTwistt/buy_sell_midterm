@@ -7,7 +7,16 @@ const userCheck = require("../db/queries/helper-queries-and-functions");
 const sessionDatabase = {};
 const helperFunctions = require("../public/scripts/helper");
 const allMessageRouter = () => {
-  //GET /posts
+  
+  /**
+   * GET request to handle messages
+   * url: /messages
+   * Function first checks to see if the user is authenticated, then checks 
+   * if their user id exists in the data base. Calls the getAllMessages function
+   * which pases in userID as an argument. The code will iterate through the returned
+   * object from the query and determine who the conversation is with then it will
+   * render the template to show the message overviews.
+   */
   router.get("/", (req, res) => {
     const userID = req.session.user_id;
     if (!userID) {
@@ -57,6 +66,14 @@ const allMessageRouter = () => {
     }
   });
 
+  /**
+   * POST request to handle if a user wants to view their conversation
+   * Function will first check if the userID exists then proceeds to process the data 
+   * There is two cases that we check for. The first is if the current user is the 
+   * seller of the item and the second is if the user wants to buy the listed item.
+   * This is an important step so that the redirectKey is the same for both users in the conversation
+   * Once the results are determined, the information is stored in an object.
+   */
   router.post("/", (req, res) => {
     const userID = req.session.user_id;
     if (!userID) {
@@ -64,12 +81,9 @@ const allMessageRouter = () => {
     } else {
       const returnData = req.body;
       const requiredData = returnData["requiredData"];
-      const splitData = requiredData.split(",");
-      const listing_id_number = splitData[0];
-      const buyer_id_number = splitData[1];
-      const sellerIdNumber = splitData[2];
+      const identifier = helperFunctions.identifyRoles(requiredData);
       delete req.session.seller_id;
-      req.session.seller_id = sellerIdNumber;
+      req.session.seller_id = identifier.sellerIdNumber;
       let redirectKey;
       const userDB = userCheck.checkUser(userID).then((data) => {
         return data;
@@ -78,23 +92,23 @@ const allMessageRouter = () => {
         const idObject = await userDB;
         const dbID = idObject.id;
         if (userID && parseInt(userID) === parseInt(dbID)) {
-          if (userID === buyer_id_number) {
-            redirectKey = userID + sellerIdNumber + listing_id_number;
-            messageQueries.getUserName(sellerIdNumber).then((data) => {
-              sessionDatabase[sellerIdNumber] = {
-                listing: listing_id_number,
-                id: buyer_id_number,
+          if (parseInt(userID) === parseInt(identifier.buyer_id_number)) {
+            redirectKey = userID + identifier.sellerIdNumber + identifier.listing_id_number;
+            messageQueries.getUserName(identifier.sellerIdNumber).then((data) => {
+              sessionDatabase[identifier.sellerIdNumber] = {
+                listing: identifier.listing_id_number,
+                id: identifier.buyer_id_number,
                 buyer: data[0].name,
               };
             });
             res.redirect(`/messages/${redirectKey}`);
           } else {
-            redirectKey = buyer_id_number + userID + listing_id_number;
-            messageQueries.getUserName(buyer_id_number).then((data) => {
+            redirectKey = identifier.buyer_id_number + userID + identifier.listing_id_number;
+            messageQueries.getUserName(identifier.buyer_id_number).then((data) => {
               const buyer_name = data[0].name;
               sessionDatabase[userID] = {
-                listing: listing_id_number,
-                id: buyer_id_number,
+                listing: identifier.listing_id_number,
+                id: identifier.buyer_id_number,
                 buyer: buyer_name,
               };
             });
@@ -106,6 +120,14 @@ const allMessageRouter = () => {
     }
   });
 
+  /**
+   * POST request for /messages/:id which handles when a user wants to send a message to another user
+   * A user can only send a message if they are authenticated 
+   * The function gets the message content and the required data to correctly
+   * add the message to the database. The information is put into an array which is then
+   * passed into the function when we insert the data into the table. The page will then
+   * render which will instantly update the conversation.
+   */
   router.post("/:id", (req, res) => {
     let user_id = req.session.user_id;
     if (!user_id) {
@@ -143,6 +165,14 @@ const allMessageRouter = () => {
       getObject();
     }
   });
+  
+  /**
+   * GET request which handles for when the user wants to view their conversation
+   * It will first check if the user is authenticated. It will then retrieve the information
+   * about the conversation from the sessionDatabase which contains the listing, seller_id, buyer_id
+   * and the buyer name. The information is stored in an array which is passed in as a paramater to the query function
+   * and then we insert a timestamp using the moment library, then render the rest the messages on the browser. 
+   */
   router.get("/:id", (req, res) => {
     const userID = req.session.user_id;
     const sellerID = req.session.seller_id;
