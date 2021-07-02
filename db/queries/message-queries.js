@@ -16,7 +16,7 @@ const getAllMessages = (userID) => {
   JOIN users senders ON to_id = senders.id
   JOIN users receivers ON from_id = receivers.id
   JOIN listings ON listing_id = listings.id 
-  WHERE to_id = $1
+  WHERE to_id = $1 or from_id = $1
   GROUP BY messages.to_id,
     messages.from_id,
     messages.time_sent,
