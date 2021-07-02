@@ -49,7 +49,7 @@
       <main class="listings-page">
 
           <div class="avatar">
-            <img alt="coverphoto">
+            <p>PHOTO</p>
             <p>$<%= categoryListings['price'] %></p>
           </div>
 
@@ -80,6 +80,10 @@
 
                 </section>
               </section>
+              <% if (categoryListings['seller_id'] === user_id) { %>
+
+
+              </section>
               <div class="form-group mb-2">
                 <div class="form-group mb-2">
                 <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>" method="POST">
@@ -88,21 +92,26 @@
                 </div>
             </div>
 
-            <div class="form-group mb-2">
-              <div class="form-group mb-2">
-              <form class="form-inline" action="/buy-sell/favorites" method="POST">
-                <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Add to Favorites</button>
-              </form>
+                <div class="form-group mb-2">
+                  <div class="form-group mb-2">
+                  <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit" method="GET">
+                    <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Mark Sold</button>
+                  </form>
+                  </div>
               </div>
-          </div>
+              </section>
+                <% } %>
 
-          <div class="form-group mb-2">
-            <div class="form-group mb-2">
-            <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit" method="GET">
-              <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Mark Sold</button>
-            </form>
-            </div>
-        </div>
+                <% if (categoryListings['seller_id'] !== user_id) { %>
+                  <div class="form-group mb-2">
+                    <div class="form-group mb-2">
+                    <form class="form-inline" action="/buy-sell/favorites" method="POST">
+                      <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Add to Favorites</button>
+                    </form>
+                    </div>
+                </div>
+                  <% } %>
+
       <% } else { %>
 
           <section class="display-left-sold">
@@ -130,38 +139,41 @@
 
               </section>
 
-
-          <div class="form-group mb-2">
-            <div class="form-group mb-2">
-            <form class="form-inline" action="/buy-sell/favorites" method="POST">
-              <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Add to Favorites</button>
-            </form>
-            </div>
-        </div>
-      <% } %>
-
-      <% if (categoryListings['seller_id'] === user_id) { %>
+              <% if (categoryListings['seller_id'] !== user_id) { %>
+                <div class="form-group mb-2">
+                  <div class="form-group mb-2">
+                  <form class="form-inline" action="/buy-sell/favorites" method="POST">
+                    <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Add to Favorites</button>
+                  </form>
+                  </div>
+              </div>
+                <% } %>
 
 
-      </section>
-      <div class="form-group mb-2">
-        <div class="form-group mb-2">
-        <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>" method="POST">
-          <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
-        </form>
-        </div>
-    </div>
 
+
+        <% if (categoryListings['seller_id'] === user_id) { %>
+
+
+        </section>
         <div class="form-group mb-2">
           <div class="form-group mb-2">
-          <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit" method="GET">
-            <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Mark Sold</button>
+          <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>" method="POST">
+            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
           </form>
           </div>
       </div>
-      </section>
-        <% } %>
 
+          <div class="form-group mb-2">
+            <div class="form-group mb-2">
+            <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit" method="GET">
+              <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Mark Sold</button>
+            </form>
+            </div>
+        </div>
+        </section>
+          <% } %>
+      <% } %>
 
 
 
