@@ -46,6 +46,7 @@ const allMessageRouter = () => {
   });
 
   router.post("/", (req, res) => {
+    const userID = req.session.user_id;
     if(!userID) {
       res.send("You do not have permission to perform this action!");
     } else {

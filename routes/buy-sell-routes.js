@@ -162,6 +162,7 @@ const buySellRouter = (db) => {
               //since you can not check with db yet
               if (userID && parseInt(userID) === parseInt(dbID)) {
                 const listing = { buyer_id: parseInt(userID), listing_id: listingId };
+                console.log(listing);
                 buySellQueries.addFavorite(listing, db)
                   .then(() => {
                     const user_id = parseInt(userID)
@@ -215,7 +216,7 @@ const buySellRouter = (db) => {
             buySellQueries.deleteFavoriteListing(listingId, db)
               .then(() => {
                 const user_id = parseInt(userID)
-                const templateVars = { user_id: idObject, categories }
+                const templateVars = { user_id: idObject}
                 res.redirect('/buy-sell/favorites');
               })
           }
@@ -332,8 +333,14 @@ const buySellRouter = (db) => {
                 .then((categoryListings) => {
                   categoryListings = categoryListings[0];
                   const user_id = parseInt(userID)
-                  const templateVars = { user_id, idObject, categoryListings, categories }
-                  res.render('buy_sell_listing_show', templateVars);
+                  buySellQueries.checkSeller(listingId, db)
+                  .then((data) => {
+                    let to_id = parseInt(userID);
+                    let seller_id_number = data[0].seller_id;
+                    console.log(seller_id_number,to_id);
+                    const templateVars = { user_id, idObject, categoryListings, categories, seller_id_number, to_id}
+                    res.render('buy_sell_listing_show', templateVars);
+                  })
                 })
             })
         } else {
@@ -371,9 +378,7 @@ const buySellRouter = (db) => {
                 const templateVars = {user_id, idObject}
                 res.redirect('/buy-sell');
               })
-          } else {
-            alert("You do not have permission to perform this action!");
-          }
+          } 
         })
       };
       getObject();
