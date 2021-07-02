@@ -33,6 +33,9 @@
 
 <!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
   <body>
+
+    <%- include('partials/_header') %>
+
     <main class="favorites-column-layout">
 
       <% if (Object.keys(favorites).length === 0) { %>

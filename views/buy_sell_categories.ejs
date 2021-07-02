@@ -33,6 +33,8 @@
 
 <!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
   <body>
+    <%- include('partials/_header') %>
+
     <main class="category-main-page">
       <% for(let category in categories) { %>
         <a href="/buy-sell/categories/<%= categories[category].id %>" class="category-container">
