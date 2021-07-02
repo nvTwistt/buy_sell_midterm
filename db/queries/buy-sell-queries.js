@@ -102,6 +102,20 @@ const deleteFavoriteListing = (listingId, db) => {
   });
 };
 
+const checkSeller = (listingId,db) => {
+  return db.query(`
+  SELECT seller_id
+  FROM listings
+  WHERE id = $1
+  `, [listingId])
+  .then((response) => {
+    return response.rows;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 const addFavorite = (listing, db) => {
   const values = [listing.buyer_id, listing.listing_id];
   return db.query(`INSERT INTO favorites(buyer_id, listing_id)
@@ -175,7 +189,8 @@ module.exports = {
   deleteListing,
   setActive,
   getBuyerID,
-  favoriteCheck
+  favoriteCheck, 
+  checkSeller
 };
 
 

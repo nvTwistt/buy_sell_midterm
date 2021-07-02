@@ -28,18 +28,37 @@ const buySellRouter = (db) => {
     let idObject;
     const getObject = async () => {
       idObject = await userDB;
-
+    if (!userID) {
       buySellQueries.getAllCategories(db)
-      .then((categories) => {
-        buySellQueries.getAllListings(db)
-          .then((listings) => {
-            const templateVars = { user: null, listings, categories }
-            console.log(listings)
-            res.render('index', templateVars);
-          })
-      })
-    };
-    getObject();
+        .then((categories) => {
+          buySellQueries.getAllListings(db)
+            .then((listings) => {
+            
+              const templateVars = { user_id = null, listings, categories}
+              console.log(listings)
+              res.render('index', templateVars);
+            })
+        })
+    } else {
+      const userDB = helperQueries.checkUser(userID).then((data) => {
+        return data;
+      });
+      let idObject;
+      const getObject = async () => {
+        idObject = await userDB;
+        
+        buySellQueries.getAllCategories(db)
+        .then((categories) => {
+          buySellQueries.getAllListings(db)
+            .then((listings) => {
+              const templateVars = { user_id: idObject, listings, categories}
+              console.log(listings)
+              res.render('index', templateVars);
+            })
+        })
+      };
+      getObject();
+    }
   })
 
   //POST /buy-sell
@@ -65,6 +84,7 @@ const buySellRouter = (db) => {
             console.log(listing)
             buySellQueries.addListing(listing, db)
               .then(() => {
+                const templateVars = { user_id: idObject}
                 res.redirect('/buy-sell')
               })
           })
@@ -88,8 +108,8 @@ const buySellRouter = (db) => {
       idObject = await userDB;
       let dbID = idObject.id;
       if (userID && parseInt(userID) === parseInt(dbID)) {
-        const user_id = req.session.user_id;
-        console.log(user_id);
+        const user_id = parseInt(req.session.user_id);
+        const templateVars = { user_id, idObject}
         res.render('buy_sell_new')
       } else {
         alert("You do not have permission to perform this action!");
@@ -151,6 +171,8 @@ const buySellRouter = (db) => {
                 const listing = { buyer_id: parseInt(userID), listing_id: listingId };
                 buySellQueries.addFavorite(listing, db)
                   .then(() => {
+                    const user_id = parseInt(userID)
+                    const templateVars = { user_id: idObject}
                     res.redirect('/buy-sell/favorites');
                   })
               }
@@ -161,6 +183,8 @@ const buySellRouter = (db) => {
                 const listing = { buyer_id: parseInt(userID), listing_id: listingId };
                 buySellQueries.addFavorite(listing, db)
                   .then(() => {
+                    const user_id = parseInt(userID)
+                    const templateVars = { user_id: idObject}
                     res.redirect('/buy-sell/favorites');
                   })
               }
@@ -198,7 +222,7 @@ const buySellRouter = (db) => {
             buySellQueries.deleteFavoriteListing(listingId, db)
               .then(() => {
                 const user_id = parseInt(userID)
-                const templateVars = { user_id, idObject, categories }
+                const templateVars = { user_id: idObject, categories }
                 res.redirect('/buy-sell/favorites');
               })
           }
@@ -229,7 +253,7 @@ const buySellRouter = (db) => {
           buySellQueries.getAllCategories(db)
             .then((categories) => {
               const user_id = parseInt(userID)
-                const templateVars = { user_id, idObject, categories }
+                const templateVars = { user_id: idObject, categories }
               res.render('buy_sell_categories', templateVars);;
             })
         } else {
@@ -333,27 +357,36 @@ const buySellRouter = (db) => {
   //cross referece with the seller id
   router.post('/categories/:id1/listings/:id2', (req, res) => {
     const userID = req.session.user_id;
-    const userDB = helperQueries.checkUser(userID).then((data) => {
-      return data;
-    });
-    //cross reference session id with seller id
-    let idObject;
-    const getObject = async () => {
-      idObject = await userDB;
-      let dbID = idObject.id;
-      if (userID && parseInt(userID) === parseInt(dbID)) {
+    if(!userID) {
+      res.send("You do not have permission to perform this action");
+    } else {
+      const userDB = helperQueries.checkUser(userID).then((data) => {
+        return data;
+      });
+      //cross reference session id with seller id
+      let idObject;
+      const getObject = async () => {
+        idObject = await userDB;
+        let dbID = idObject.id;
         const listingId = req.params.id2;
-        const categoryId = req.params.id1;
-        buySellQueries.deleteListing(listingId, categoryId, db)
-          .then(() => {
-            res.redirect('/buy-sell');
-          })
-      } else {
-        alert("You do not have permission to perform this action!");
-      }
-    };
-    getObject();
-
+        buySellQueries.checkSeller(listingId, db)
+        .then((data) => {
+          let seller_id_number = data[0].seller_id;
+          if (userID && parseInt(seller_id_number) === parseInt(dbID)) {
+            const categoryId = req.params.id1;
+            buySellQueries.deleteListing(listingId, categoryId, db)
+              .then(() => {
+                let user_id = parseInt(userID);
+                const templateVars = {user_id, idObject}
+                res.redirect('/buy-sell');
+              })
+          } else {
+            alert("You do not have permission to perform this action!");
+          }
+        })
+      };
+      getObject();
+    }
   })
 
   //edit /buy-sell/categories/:id/listings/:id/edit
@@ -368,17 +401,24 @@ const buySellRouter = (db) => {
     const getObject = async () => {
       idObject = await userDB;
       let dbID = idObject.id;
-      if (userID && parseInt(userID) === parseInt(dbID)) {
-        const listingId = req.params.id2;
-        const categoryId = req.params.id1;
-        console.log('here')
-        buySellQueries.setActive(listingId, db)
-          .then(() => {
-            res.redirect('/buy-sell');
-          })
-      } else {
-        res.send("You do not have permission to perform this action!");
-      }
+      const listingId = req.params.id2;
+      buySellQueries.checkSeller(listingId, db)
+      .then((data) => {
+        let seller_id_number = data[0].seller_id;
+        if (userID && parseInt(seller_id_number) === parseInt(dbID)) {
+          const listingId = req.params.id2;
+          const categoryId = req.params.id1;
+          console.log('here')
+          buySellQueries.setActive(listingId, db)
+            .then(() => {
+              let user_id = parseInt(userID);
+              const templateVars = {user_id, idObject}
+              res.redirect('/buy-sell');
+            })
+        } else {
+          res.send("You do not have permission to perform this action!");
+        }
+      })
     };
     getObject();
 
