@@ -1,8 +1,9 @@
-const db = require('../../lib/db-connection');
-
+const db = require("../../lib/db-connection");
 
 const getAllMessages = (userID) => {
-  return db.query(`
+  return db
+    .query(
+      `
   SELECT DISTINCT a.to_id, a.from_id, a.sender, a.receiver, a.title, a.listing_id
   FROM (
     SELECT messages.to_id,
@@ -25,17 +26,21 @@ const getAllMessages = (userID) => {
     senders.name, receivers.name,
     messages.message, listings.title
   ORDER BY date DESC, time DESC) a;
-`,[userID])
-  .then((response) => {
-    return response.rows;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+`,
+      [userID]
+    )
+    .then((response) => {
+      return response.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const getConversation = (query_params) => {
-  return db.query(`
+  return db
+    .query(
+      `
   SELECT messages.to_id,
    receivers.name AS receiver_name,
    messages.from_id,
@@ -53,40 +58,50 @@ const getConversation = (query_params) => {
   (to_id = $1 AND from_id = $3))
   AND listing_id = $2 
   ORDER BY messages.time_sent DESC;
-  `, query_params)
-  .then((response) => {
-    return response.rows;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  `,
+      query_params
+    )
+    .then((response) => {
+      return response.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const insertNewMessage = (queryData) => {
-  return db.query(`
+  return db
+    .query(
+      `
   INSERT INTO messages
   (to_id, from_id, time_sent, message, listing_id) 
   VALUES ($2,$1, $3, $4, $5) RETURNING *;
-  `, queryData)
-  .catch((err) => {
-    console.log(err);
-  })
+  `,
+      queryData
+    )
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const getUserName = (userID) => {
-  return db.query(`
+  return db
+    .query(
+      `
   SELECT users.name
   FROM users
   WHERE id = $1; 
-  `, [userID])
-  .then((data) => {
-    return data.rows;
-  })
-}
+  `,
+      [userID]
+    )
+    .then((data) => {
+      return data.rows;
+    });
+};
 
 module.exports = {
   getAllMessages,
   getConversation,
   insertNewMessage,
-  getUserName
+  getUserName,
 };

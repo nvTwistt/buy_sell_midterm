@@ -11,17 +11,11 @@ const loginRouter = () => {
     delete req.session.user_id;
     const userID = req.params.id;
     req.session.user_id = userID;
-    const userData = [req.params.id];
-    return db.query(`
-    SELECT * 
-    FROM users
-    WHERE id = $1;
-    `, userData
-    ) 
+    const userData = req.params.id;
+    helperQueries.checkUser(userData)
     .then((data) => {
       delete req.session.user_name;
-      let userData = data.rows[0];
-      let name = userData['name'];
+      let name = data['name'];
       req.session.user_name = name;
       res.redirect('/buy-sell');
     })

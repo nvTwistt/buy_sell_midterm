@@ -27,10 +27,13 @@ const getDate = function () {
 };
 
 const getBuyer = function (messageIdentifier, user_id) {
-  if (messageIdentifier.first_id === user_id && messageIdentifier.second_id !== user_id) {
+  if (
+    messageIdentifier.first_id === user_id &&
+    messageIdentifier.second_id !== user_id
+  ) {
     return messageIdentifier.second_id;
   } else {
     return messageIdentifier.first_id;
   }
-}
+};
 module.exports = { splitData, getDate, getBuyer };
