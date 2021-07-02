@@ -28,7 +28,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">From</th>
+          <th scope="col">With</th>
           <th scope="col">Date</th>
           <th scope="col">Listing Id</th>
           <th scope="col">View</th>
@@ -36,14 +36,14 @@
       </thead>
       <tbody>
         <% for(let content in messages) { %>
-          <%= console.log(messages[content].receiver) %>
+          <%= console.log("This is who: ", messages[content].with) %>
           <tr>
-            <td><%= messages[content].receiver %></td>
+            <td><%= messages[content].with %></td>
             <td><%= messages[content].date %></td>
             <td><%= messages[content].listing_id %></td>
             <td>
               <form method="post" action='/messages' >
-                <button type="submit" class="btn btn-outline-primary" name="requiredData" value=<%=`${messages[content].listing_id},${messages[content].from_id}`%>> View </button>
+                <button type="submit" class="btn btn-outline-primary" name="requiredData" value=<%=`${messages[content].listing_id},${messages[content].from_id},${messages[content].to_id}`%>> View </button>
               </form>
             </td>
           </tr>

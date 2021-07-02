@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const sessionDatabase = require('../routes/messages-routes');
 const buySellQueries = require('../db/queries/buy-sell-queries');
 const helperQueries = require('../db/queries/helper-queries-and-functions');
 const userCheck = require("../db/queries/helper-queries-and-functions");
@@ -340,7 +341,7 @@ const buySellRouter = (db) => {
                     let to_id = parseInt(userID);
                     let seller_id_number = data[0].seller_id;
                     console.log(seller_id_number,to_id);
-                    const templateVars = { user_id, idObject, categoryListings, categories, seller_id_number, to_id}
+                    const templateVars = { user_id, idObject, categoryListings, categories, seller_id_number, to_id, listingId}
                     res.render('buy_sell_listing_show', templateVars);
                   })
                 })
@@ -435,14 +436,17 @@ const buySellRouter = (db) => {
         idObject = await userDB;
         let dbID = idObject.id;
         if (user_id && parseInt(user_id) === parseInt(dbID)) {
-          const bodyText = req.body.text;
-          console.log("body: ", bodyText);
+          const bodyText = res.req.body.form;
+          console.log("response: ", res.req.body);
+          console.log("res: ", Object.keys(res.req));
           let returnData = req.body;
           let requiredData = returnData["requiredData"];
           console.log("require data: ", requiredData);
           let splitData = requiredData.split(",");
           let first_id = splitData[0];
           let second_id = splitData[1];
+          let listing = splitData[2];
+          let redirectKey = second_id + first_id + listing;
           let buyer_id;
           if (first_id === user_id && second_id !== user_id) {
             buyer_id = second_id;
@@ -463,7 +467,7 @@ const buySellRouter = (db) => {
             ":" +
             current.getSeconds();
           let dateTime = cDate + " " + cTime;
-          let listing_id_number = sessionDatabase[user_id].listing;
+          let listing_id_number = listing;
           let queryData = [
             parseInt(user_id),
             parseInt(buyer_id),
@@ -484,7 +488,7 @@ const buySellRouter = (db) => {
             .catch((err) => {
               console.log(err);
             });
-          res.redirect("/");
+          res.redirect(`/messages`);
         } else {
           res.send("You do not have permission to perform this action!");
         }
