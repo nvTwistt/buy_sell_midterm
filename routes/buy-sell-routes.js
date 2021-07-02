@@ -55,7 +55,9 @@ const buySellRouter = (db) => {
               }
 
 
-              const templateVars = { rand1, rand2, rand3, rand4, user_id: null, listings, categories}
+
+              const user_id = null
+              const templateVars = { rand1, rand2, rand3, rand4, user_id, listings, categories}
               res.render('index', templateVars);
             })
         })
@@ -82,8 +84,10 @@ const buySellRouter = (db) => {
                 rand4 = getRandomInt(min, max);
               }
 
+              const user_id = parseInt(userID)
 
-              const templateVars = { rand1, rand2, rand3, rand4, user_id: idObject, listings, categories}
+              console.log(idObject)
+              const templateVars = { rand1, rand2, rand3, rand4, user_id, idObject, listings, categories}
               console.log(listings)
               res.render('index', templateVars);
             })
@@ -116,7 +120,7 @@ const buySellRouter = (db) => {
             console.log(listing)
             buySellQueries.addListing(listing, db)
               .then(() => {
-                const templateVars = { user_id: idObject}
+                const templateVars = { user_id, idObject}
                 res.redirect('/buy-sell')
               })
           })
@@ -204,8 +208,8 @@ const buySellRouter = (db) => {
                 console.log(listing);
                 buySellQueries.addFavorite(listing, db)
                   .then(() => {
-                    const user_id = parseInt(userID)
-                    const templateVars = { user_id: idObject}
+                    const user_id = null;
+                    const templateVars = { user_id, idObject}
                     res.redirect('/buy-sell/favorites');
                   })
               }
@@ -217,7 +221,7 @@ const buySellRouter = (db) => {
                 buySellQueries.addFavorite(listing, db)
                   .then(() => {
                     const user_id = parseInt(userID)
-                    const templateVars = { user_id: idObject}
+                    const templateVars = { user_id, idObject}
                     res.redirect('/buy-sell/favorites');
                   })
               }
@@ -255,7 +259,7 @@ const buySellRouter = (db) => {
             buySellQueries.deleteFavoriteListing(listingId, db)
               .then(() => {
                 const user_id = parseInt(userID)
-                const templateVars = { user_id: idObject}
+                const templateVars = { user_id, idObject}
                 res.redirect('/buy-sell/favorites');
               })
           }
@@ -271,7 +275,8 @@ const buySellRouter = (db) => {
     if (!userID) {
       buySellQueries.getAllCategories(db)
         .then((categories) => {
-          const templateVars = { user: null, categories }
+          const user_id = null;
+          const templateVars = { user_id, categories }
           res.render('buy_sell_categories', templateVars);;
         })
     } else {
@@ -286,7 +291,7 @@ const buySellRouter = (db) => {
           buySellQueries.getAllCategories(db)
             .then((categories) => {
               const user_id = parseInt(userID)
-                const templateVars = { user_id: idObject, categories }
+                const templateVars = { user_id, idObject, categories }
               res.render('buy_sell_categories', templateVars);;
             })
         } else {
@@ -308,7 +313,8 @@ const buySellRouter = (db) => {
           buySellQueries.getCategoryListings(categoryId, db)
             .then((category) => {
               console.log(category)
-              const templateVars = { user: null, category, categories }
+              const user_id = null
+              const templateVars = { user_id, category, categories }
               res.render('buy_sell_categories_show', templateVars);
             })
         })
@@ -327,7 +333,7 @@ const buySellRouter = (db) => {
             .then((categories) => {
               buySellQueries.getCategoryListings(categoryId, db)
                 .then((category) => {
-                  const user_id = parseInt(userID)
+                const user_id = parseInt(userID)
                 const templateVars = { user_id, idObject, category, categories }
                   res.render('buy_sell_categories_show', templateVars);
                 })
@@ -353,7 +359,7 @@ const buySellRouter = (db) => {
           buySellQueries.getListing(listingId, categoryId, db)
             .then((categoryListings) => {
               categoryListings = categoryListings[0];
-              let user_id = userID;
+              const user_id = null;
               const templateVars = { user_id, categoryListings, categories }
               res.render('buy_sell_listing_show', templateVars);
             })

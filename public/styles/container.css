@@ -233,6 +233,10 @@
   padding-left: 2em;
 }
 
+.category-main-page {
+  margin-top: 130px;
+}
+
 .category-main-page a {
   text-decoration: none;
 }
