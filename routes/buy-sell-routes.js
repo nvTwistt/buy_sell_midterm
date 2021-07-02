@@ -25,8 +25,7 @@ const buySellRouter = (db) => {
           .then((categories) => {
             buySellQueries.getAllListings(db)
               .then((listings) => {
-                const user_id = parseInt(userID)
-                const templateVars = { idObject, user_id, listings, categories }
+                const templateVars = { listings, categories }
                 console.log(listings)
                 res.render('index', templateVars);
               })
