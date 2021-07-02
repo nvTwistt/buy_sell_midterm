@@ -206,6 +206,8 @@
 
 .favorites-column-layout {
 
+  margin-top: 20px;
+
   .empty-favorites {
     display: flex;
     justify-content: center;
@@ -252,6 +254,7 @@
 }
 
 .listings-page {
+  margin-top: 30px;
   button {
     display: flex;
     height:2em;
