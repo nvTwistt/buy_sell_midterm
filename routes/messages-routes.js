@@ -171,6 +171,7 @@ const allMessageRouter = () => {
           let splitData = requiredData.split(",");
           let first_id = splitData[0];
           let second_id = splitData[1];
+          let list_id = splitData[2];
           let buyer_id;
           if (first_id === user_id && second_id !== user_id) {
             buyer_id = second_id;
@@ -194,7 +195,7 @@ const allMessageRouter = () => {
             ":" +
             current.getSeconds();
           let dateTime = cDate + " " + cTime;
-          let listing_id_number = sessionDatabase[user_id].listing;
+          let listing_id_number = parseInt(list_id);
           let queryData = [
             parseInt(user_id),
             parseInt(buyer_id),
