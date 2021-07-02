@@ -17,6 +17,10 @@
   align-items: center;
 }
 
+.space {
+  height: 75px;
+}
+
 .sender {
   display: flex;
   width: inherit;

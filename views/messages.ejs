@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/new-message.css">
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/nav.css">
+  <link rel="stylesheet" href="/styles/new-tweet.css">
+  <link rel="stylesheet" href="/styles/container.css">
   <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"
   ></script>
@@ -14,7 +18,12 @@
   <title>TinyApp</title>
 </head>
 <body id="main-content-container">
-
+  <header class="section menu">
+    <nav>
+      <span class="tweeter-name"><a href="/buy-sell">Home</a></span>
+    </nav>
+  </header>
+  <div class = "space"></div>
   <main class="container">
     <%=console.log("messages: ", messages)%>
     <h3 class="title"><%= userName%>'s Messages</h3>

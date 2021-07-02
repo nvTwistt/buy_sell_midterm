@@ -257,7 +257,6 @@ const allMessageRouter = () => {
         let listing_id_number = sessionDatabase[sellerID].listing;
         let buyer_id_number = sessionDatabase[sellerID].id;
         let buyer_name = sessionDatabase[sellerID].buyer;
-        //if (userID === buyer_id_number)
         let query_params = [req.session.seller_id, listing_id_number, buyer_id_number];
         console.log("parameters: ", query_params);
         let name = req.session.user_name;
