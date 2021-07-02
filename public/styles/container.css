@@ -216,3 +216,15 @@
 .listings-page {
   width: 100%;
 }
+
+.index-features {
+  display: flex;
+}
+
+.index-features section {
+  width: 10em;
+}
+
+.index-features div {
+  height: 15em;
+}

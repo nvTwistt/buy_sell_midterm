@@ -220,3 +220,14 @@
 .listings-page {
   width: 100%
 }
+
+.index-features {
+  display: flex;
+  section {
+    width: 10em;
+  }
+  div {
+    height: 15em;
+  }
+
+}
