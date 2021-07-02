@@ -109,6 +109,7 @@ const allMessageRouter = () => {
           console.log("body: ", bodyText);
           let returnData = req.body;
           let requiredData = returnData["requiredData"];
+          console.log("require data: ", requiredData);
           let splitData = requiredData.split(",");
           let first_id = splitData[0];
           let second_id = splitData[1];

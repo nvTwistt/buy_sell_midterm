@@ -417,8 +417,83 @@ const buySellRouter = (db) => {
       })
     };
     getObject();
-
   })
+
+  router.post("/views", (req, res) => {
+    let user_id = req.session.user_id;
+    if (!user_id) {
+      res.send("You don't have permission to perform this action!");
+    } else {
+      const userDB = userCheck.checkUser(user_id).then((data) => {
+        console.log("data: ", data);
+        return data;
+      });
+      let idObject;
+      const getObject = async () => {
+        idObject = await userDB;
+        let dbID = idObject.id;
+        if (user_id && parseInt(user_id) === parseInt(dbID)) {
+          const bodyText = req.body.text;
+          console.log("body: ", bodyText);
+          let returnData = req.body;
+          let requiredData = returnData["requiredData"];
+          console.log("require data: ", requiredData);
+          let splitData = requiredData.split(",");
+          let first_id = splitData[0];
+          let second_id = splitData[1];
+          let buyer_id;
+          if (first_id === user_id && second_id !== user_id) {
+            buyer_id = second_id;
+          } else {
+            buyer_id = first_id;
+          }
+          //required data returns a string containing two items
+          //check to see which one is not the user_id
+          //the one that is not will be the sender IDå
+          let current = new Date();
+          let cDate =
+            current.getFullYear() +
+            "-" +
+            (current.getMonth() + 1) +
+            "-" +
+            current.getDate();
+          let cTime =
+            current.getHours() +
+            ":" +
+            current.getMinutes() +
+            ":" +
+            current.getSeconds();
+          let dateTime = cDate + " " + cTime;
+          let listing_id_number = sessionDatabase[user_id].listing;
+          let queryData = [
+            parseInt(user_id),
+            parseInt(buyer_id),
+            dateTime,
+            bodyText,
+            parseInt(listing_id_number),
+          ];
+          db.query(
+            `
+      INSERT INTO messages (to_id, from_id, time_sent, message, listing_id)
+      VALUES ($2,$1, $3, $4, $5) RETURNING *;
+      `,
+            queryData
+          )
+            .then((data) => {
+              //console.log(data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          res.redirect("/messages/:id");
+        } else {
+          res.send("You do not have permission to perform this action!");
+        }
+      };
+      getObject();
+    }
+    
+  });
 
   return router;
 };

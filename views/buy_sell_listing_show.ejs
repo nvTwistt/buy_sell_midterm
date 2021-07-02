@@ -1,233 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <!-- Meta Information -->
+    <title>Tweeter - Home Page</title>
 
-<head>
-  <!-- Meta Information -->
-  <title>Tweeter - Home Page</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
 
-  <!-- External CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-    type="text/css" />
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/new-tweet.css">
+    <link rel="stylesheet" href="/styles/container.css">
 
-  <!-- App CSS -->
-  <link rel="stylesheet" href="/styles/index.css">
-  <link rel="stylesheet" href="/styles/nav.css">
-  <link rel="stylesheet" href="/styles/new-tweet.css">
-  <link rel="stylesheet" href="/styles/container.css">
+    <!-- External JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-  <!-- External JS -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
-    integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- App JS -->
+    <script type="text/javascript" src="/scripts/client.js"></script>
+    <script type='text/javascript' src='scripts/composer-char-counter.js'></script>
 
-  <!-- App JS -->
-  <script type="text/javascript" src="/scripts/client.js"></script>
-  <script type='text/javascript' src='scripts/composer-char-counter.js'></script>
+    <!-- Bungee/Source Sans Pro Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
 
-  <!-- Bungee/Source Sans Pro Google Font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap"
-    rel="stylesheet">
+    <!-- Icons - AwesomeFont -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
-  <!-- Icons - AwesomeFont -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-
-  <!-- Viewport mobile default prevention -->
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
-</head>
+    <!-- Viewport mobile default prevention -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+  </head>
 
 <!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
+  <body>
+    <main class="main">
+      <!-- Top nav bar (fixed) -->
+      <header class="section menu">
+        <nav>
+          <span class="tweeter-name">tweeters</span>
+          <span class="logo">
+            <span><b>Write</b> a new tweet</span>
+            <i class="fas fa-angle-double-down"></i>
+          </span>
+        </nav>
+      </header>
 
-<body>
-  <main class="main">
-    <!-- Top nav bar (fixed) -->
-    <header class="section menu">
-      <nav>
-        <span class="tweeter-name">tweeters</span>
-        <span class="logo">
-          <span><b>Write</b> a new tweet</span>
-          <i class="fas fa-angle-double-down"></i>
-        </span>
-      </nav>
-    </header>
+      <!-- Page-specific (main) content here -->
+      <main class="listings-page">
 
-    <!-- Page-specific (main) content here -->
-    <main class="listings-page">
+          <div class="avatar">
+            <p>PHOTO</p>
+            <p>$<%= categoryListings['price'] %></p>
+          </div>
 
-      <div class="avatar">
-        <img alt="coverphoto">
-        <p>$<%= categoryListings['price'] %>
-        </p>
-      </div>
+        <% if (categoryListings['active']) { %>
 
-      <% if (categoryListings['active']) { %>
+            <section class="display-left">
 
-        <section class="display-left">
+              <section class="listing-container">
+                  <div class="title-container">
+                    <header>
 
-          <section class="listing-container">
-            <div class="title-container">
-              <header>
+                          <p><%= categoryListings['title'] %></p>
+                        </div>
+                      </header>
 
-                <p>
-                  <%= categoryListings['title'] %>
-                </p>
+                      <p class="listing-text"><%= categoryListings['description'] %></p>
+                      <div><%= categoryListings['country'] %></div>
+            <div><%= categoryListings['city'] %></div>
+            <div><%= categoryListings['province'] %></div>
+
+                    <footer>
+                      <div>
+                      </div>
+                      <div>
+                        <p>icon</p>
+                      </div>
+                    </footer>
+
+                </section>
+              </section>
+              <% if (categoryListings['seller_id'] === user_id) { %>
+
+
+              </section>
+              <div class="form-group mb-2">
+                <div class="form-group mb-2">
+                <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>" method="POST">
+                  <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+                </form>
+                </div>
             </div>
-            </header>
 
-            <p class="listing-text">
-              <%= categoryListings['description'] %>
-            </p>
-            <div>
-              <%= categoryListings['country'] %>
-            </div>
-            <div>
-              <%= categoryListings['city'] %>
-            </div>
-            <div>
-              <%= categoryListings['province'] %>
-            </div>
-
-            <footer>
-              <div>
+                <div class="form-group mb-2">
+                  <div class="form-group mb-2">
+                  <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit" method="GET">
+                    <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Mark Sold</button>
+                  </form>
+                  </div>
               </div>
-              <div>
-                <p>icon</p>
-              </div>
-            </footer>
+              </section>
+                <% } %>
 
-          </section>
-        </section>
-        <div class="form-group mb-2">
-          <div class="form-group mb-2">
-            <form class="form-inline"
-              action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>"
-              method="POST">
-              <button type="submit" class="btn btn-primary"
-                onclick="return confirm('Are you sure you want to delete?');">Delete</button>
-            </form>
-          </div>
-        </div>
+                <% if (categoryListings['seller_id'] !== user_id) { %>
+                  <div class="form-group mb-2">
+                    <div class="form-group mb-2">
+                    <form class="form-inline" action="/buy-sell/favorites" method="POST">
+                      <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Add to Favorites</button>
+                    </form>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
+                  <div class="form-group mb-2">
+                    <form class="messageForm" method="POST" action="/buy-sell/views">
+                      <textarea placeholder="Type your message here." name = "text" id="message-text" class="text"></textarea>
+                      <br>
+                      <div class = "submission">
+                        <button id="submissionButton" class="messageButton" type="submit" name="requiredData" value="hey">Send Message</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+      
+                  <% } %>
 
-        <div class="form-group mb-2">
-          <div class="form-group mb-2">
-            <form class="form-inline" action="/buy-sell/favorites" method="POST">
-              <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>">Add to
-                Favorites</button>
-            </form>
-          </div>
-        </div>
-
-        <div class="form-group mb-2">
-          <div class="form-group mb-2">
-            <form class="form-inline"
-              action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit"
-              method="GET">
-              <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>">Mark Sold</button>
-            </form>
-          </div>
-        </div>
-
-        <div class="form-group mb-2">
-          <div class="form-group mb-2">
-            <form class="messageForm" method="POST" action="/messages/views">
-              <textarea placeholder="Type your message here." name = "text" id="message-text" class="text"></textarea>
-              <br>
-              <div class = "submission">
-                <button id="submissionButton" class="messageButton" type="submit" name="requiredData" value=<%=`${seller_id_number},${to_id}`%>>Send Message</button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <% } else { %>
+      <% } else { %>
 
           <section class="display-left-sold">
 
             <div class="avatar">
               <h1>SOLD</h1>
-            </div>
+                      </div>
             <section class="listing-container">
-              <div class="title-container">
-                <header>
+                <div class="title-container">
+                  <header>
 
-                  <p>
-                    <%= categoryListings['title'] %>
-                  </p>
+                        <p><%= categoryListings['title'] %></p>
+                      </div>
+                    </header>
+
+                    <p class="listing-text"><%= categoryListings['description'] %></p>
+
+                  <footer>
+                    <div>
+                    </div>
+                    <div>
+                      <p>icon</p>
+                    </div>
+                  </footer>
+
+              </section>
+
+              <% if (categoryListings['seller_id'] !== user_id) { %>
+                <div class="form-group mb-2">
+                  <div class="form-group mb-2">
+                  <form class="form-inline" action="/buy-sell/favorites" method="POST">
+                    <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Add to Favorites</button>
+                  </form>
+                  </div>
               </div>
-              </header>
-
-              <p class="listing-text">
-                <%= categoryListings['description'] %>
-              </p>
-
-              <footer>
-                <div>
-                </div>
-                <div>
-                  <p>icon</p>
-                </div>
-              </footer>
-
-            </section>
+    
+                <% } %>
 
 
-            <div class="form-group mb-2">
-              <div class="form-group mb-2">
-                <form class="form-inline" action="/buy-sell/favorites" method="POST">
-                  <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>">Add to
-                    Favorites</button>
-                </form>
-              </div>
-            </div>
-            <% } %>
-
-              <% if (categoryListings['seller_id']===user_id) { %>
 
 
-          </section>
+        <% if (categoryListings['seller_id'] === user_id) { %>
+
+
+        </section>
+        <div class="form-group mb-2">
           <div class="form-group mb-2">
-            <div class="form-group mb-2">
-              <form class="form-inline"
-                action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>"
-                method="POST">
-                <button type="submit" class="btn btn-primary"
-                  onclick="return confirm('Are you sure you want to delete?');">Delete</button>
-              </form>
-            </div>
+          <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>" method="POST">
+            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+          </form>
           </div>
+      </div>
 
           <div class="form-group mb-2">
             <div class="form-group mb-2">
-              <form class="form-inline"
-                action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit"
-                method="GET">
-                <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>">Mark Sold</button>
-              </form>
+            <form class="form-inline" action="/buy-sell/categories/<%= categoryListings['category_id'] %>/listings/<%= categoryListings['id'] %>/edit" method="GET">
+              <button type="submit" class="btn btn-primary" name="<%= categoryListings['id']%>" >Mark Sold</button>
+            </form>
             </div>
-          </div>
-          <div class="form-group mb-2">
-            <div class="form-group mb-2">
-              <form class="messageForm" method="POST" action="/messages/views">
-                <textarea placeholder="Type your message here." name = "text" id="message-text" class="text"></textarea>
-                <br>
-                <div class = "submission">
-                  <button id="submissionButton" class="messageButton" type="submit" name="requiredData" value=<%=`${seller_id_number},${to_id}`%>>Send Message</button>
-                </div>
-              </form>
-            </div>
-          </div>
-          </section>
+        </div>
+        </section>
           <% } %>
+      <% } %>
 
 
 
 
+        <section class="section footer"></section>
 
-            <section class="section footer"></section>
-
+      </main>
     </main>
-  </main>
-</body>
-
+  </body>
 </html>
