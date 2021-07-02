@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const buySellQueries = require('../db/queries/buy-sell-queries');
 const helperQueries = require('../db/queries/helper-queries-and-functions');
+const userCheck = require("../db/queries/helper-queries-and-functions");
 const buySellRouter = (db) => {
 
   // const userID = req.session.user_id;
@@ -314,7 +315,8 @@ const buySellRouter = (db) => {
           buySellQueries.getListing(listingId, categoryId, db)
             .then((categoryListings) => {
               categoryListings = categoryListings[0];
-              const templateVars = { user: null, categoryListings, categories }
+              let user_id = userID;
+              const templateVars = { user_id, categoryListings, categories }
               res.render('buy_sell_listing_show', templateVars);
             })
         })
@@ -447,9 +449,6 @@ const buySellRouter = (db) => {
           } else {
             buyer_id = first_id;
           }
-          //required data returns a string containing two items
-          //check to see which one is not the user_id
-          //the one that is not will be the sender IDå
           let current = new Date();
           let cDate =
             current.getFullYear() +
@@ -485,7 +484,7 @@ const buySellRouter = (db) => {
             .catch((err) => {
               console.log(err);
             });
-          res.redirect("/messages/:id");
+          res.redirect("/");
         } else {
           res.send("You do not have permission to perform this action!");
         }
