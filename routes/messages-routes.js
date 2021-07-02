@@ -44,7 +44,12 @@ const allMessageRouter = () => {
             }
           }
           for (const obj of data) {
-            console.log("object: ",data[obj]);
+            let keys = Object.keys(obj);
+            if(!keys.includes('with')) {
+              if (parseInt(userID) === parseInt(obj.from_id)) {
+                obj["with"] = obj.sender;
+              }
+            }
           }
           const templateVars = {
             user_id: userID,
