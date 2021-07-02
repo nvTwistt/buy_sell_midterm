@@ -17,10 +17,6 @@
   align-items: center;
 }
 
-.space {
-  height: 75px;
-}
-
 .sender {
   display: flex;
   width: inherit;
@@ -70,7 +66,7 @@
   justify-content: center;
   padding-top: 0.5em;
   width: 70%;
-  background-color: #90F1EF;
+  background-color: #90f1ef;
   outline-color: black;
   outline-style: solid;
   outline-width: 2px;
@@ -187,21 +183,21 @@
   position: sticky;
   top: 0;
   display: flex;
-  height: 120px;
+  height: 80px;
   width: 100%;
-  background-color: #264653;
+  background-color: lightblue;
   justify-content: space-between;
   color: #f4a261;
-  font-family: 'Bungee', sans-serif;
-  padding-left: 1.0em;
-  padding-right: 1.0em;
+  font-family: "Bungee", sans-serif;
+  padding-left: 1em;
+  padding-right: 1em;
   padding-bottom: 0.5em;
   font-size: 24px;
 }
 
 .left {
   display: flex;
-  font-family: 'Bungee', cursive;
+  font-family: "Bungee", cursive;
   align-items: center;
 }
 

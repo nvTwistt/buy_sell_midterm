@@ -57,6 +57,12 @@ nav > span a {
   padding-top: 2em;
 }
 
+.nav-titles {
+  font-family: 'Source Sans Pro';
+  padding-top: 2em;
+  font-size: 1em;
+}
+
 .tweeter-name {
   font-family: 'Source Sans Pro';
   padding-top: 2em;

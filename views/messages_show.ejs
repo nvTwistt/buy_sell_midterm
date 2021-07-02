@@ -16,12 +16,16 @@
   <title>Messages</title>
 </head>
 <body>
-  <header class="section menu">
-    <nav>
-      <span class="tweeter-name"><a href="/buy-sell">Home</a></span>
-    </nav>
-  </header>
-  <div class = "space"></div>
+  <nav class="top">
+    <span class="nav-titles"><a href="/buy-sell">Home</a></span>
+    <span class="nav-titles"><a href="/buy-sell/categories">Categories</a></span>
+    <span class="nav-titles"><a href="/messages">Messages</a></span>
+    <span class="nav-titles"><a href="/buy-sell/favorites">Favorites</a></span>
+    <span class="nav-titles"><a href="/buy-sell/new"> New Listing</a></span>
+    <span class="logo">
+      <span>Logged in as: <%=idObject.name%> </span>
+      </span>
+  </nav>
   <main class="container">
     <h3>My messages</h3>
     <table class="table">

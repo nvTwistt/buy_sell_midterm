@@ -1,88 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    type="text/css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/styles/new-message.css">
   <link rel="stylesheet" href="/styles/index.css">
   <link rel="stylesheet" href="/styles/nav.css">
   <link rel="stylesheet" href="/styles/new-tweet.css">
   <link rel="stylesheet" href="/styles/container.css">
-  <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"
-  ></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>TinyApp</title>
 </head>
+
 <body id="main-content-container">
-  <header class="section menu">
-    <nav>
-      <span class="tweeter-name"><a href="/buy-sell">Home</a></span>
-    </nav>
-  </header>
-  <div class = "space"></div>
+  <nav class="top">
+    <span class="nav-titles"><a href="/buy-sell">Home</a></span>
+    <span class="nav-titles"><a href="/buy-sell/categories">Categories</a></span>
+    <span class="nav-titles"><a href="/messages">Messages</a></span>
+    <span class="nav-titles"><a href="/buy-sell/favorites">Favorites</a></span>
+    <span class="nav-titles"><a href="/buy-sell/new"> New Listing</a></span>
+    <span class="logo">
+      <span>Logged in as: <%=idObject.name%> </span>
+    </span>
+  </nav>
   <main class="container">
-    <%=console.log("messages: ", messages)%>
-    <h3 class="title"><%= userName%>'s Messages</h3>
-    <H6>Send a message to <%=buyerName%></H6>
+    <h3 class="title">
+      <%= userName%>'s Messages
+    </h3>
+    <H6>Send a message to <%=buyerName%>
+    </H6>
     <form class="messageForm" method="POST" action="/messages/:id">
-      <textarea placeholder="Type your message here." name = "text" id="message-text" class="text"></textarea>
+      <textarea placeholder="Type your message here." name="text" id="message-text" class="text"></textarea>
       <br>
-      <div class = "submission">
-        <button id="submissionButton" class="messageButton" type="submit" name="requiredData" value=<%=`${messages[0].to_id},${messages[0].from_id},${messages[0].listing_id}`%>>Send Message</button>
+      <div class="submission">
+        <button id="submissionButton" class="messageButton" type="submit" name="requiredData"
+          value=<%=`${messages[0].to_id},${messages[0].from_id},${messages[0].listing_id}`%>>Send Message</button>
       </div>
     </form>
     <div class="messagecontainer">
-        <% for(let content in messages) { %>
-          <% console.log(messages[content]) %>
-          <% if (user_id == messages[content].from_id) {%>
+      <% for(let content in messages) { %>
+        <% if (user_id==messages[content].from_id) {%>
           <div class="sender">
-          <section id="message-container" class="message-tracker">
-            <header class = "message-header">
-              <div class="left-header">
-                <h6 class = "name"><%=messages[content].receiver_name%></h6>
-              </div>
-              <div class= "name"></div>
-            </header>
-            <p class = "message-body">
-              <%=messages[content].message%>
-            </p>
-            <footer class="message-footer">
-              <p class="time-section">
-                <%=messages[content].time_sent%>
-              </p>
-            </footer>
-          </section>
-          </div>
-          <% } else { %>
-            <div class="receiver">
-            <section id="receiver_message" class="receiver_message">
-              <header class = "message-header">
+            <section id="message-container" class="message-tracker">
+              <header class="message-header">
                 <div class="left-header">
-                  <h6 class = "name"></h6>
+                  <h6 class="name">
+                    <%=messages[content].receiver_name%>
+                  </h6>
                 </div>
-                <div class= "name-right"><%=messages[content].receiver_name%></div>
+                <div class="name"></div>
               </header>
-              <p class = "message-body">
+              <p class="message-body">
                 <%=messages[content].message%>
               </p>
-              <footer class="m-footer">
+              <footer class="message-footer">
                 <p class="time-section">
                   <%=messages[content].time_sent%>
                 </p>
               </footer>
             </section>
+          </div>
+          <% } else { %>
+            <div class="receiver">
+              <section id="receiver_message" class="receiver_message">
+                <header class="message-header">
+                  <div class="left-header">
+                    <h6 class="name"></h6>
+                  </div>
+                  <div class="name-right">
+                    <%=messages[content].receiver_name%>
+                  </div>
+                </header>
+                <p class="message-body">
+                  <%=messages[content].message%>
+                </p>
+                <footer class="m-footer">
+                  <p class="time-section">
+                    <%=messages[content].time_sent%>
+                  </p>
+                </footer>
+              </section>
             </div>
-        <% }} %>
+            <% }} %>
     </div>
   </main>
   <footer class="main-footer"></footer>
   <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
