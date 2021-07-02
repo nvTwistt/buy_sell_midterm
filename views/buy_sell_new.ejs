@@ -1,45 +1,64 @@
-<form action="/buy-sell" method="post" id="new-property-form" class="new-property-form">
-  <div class="new-property-form__field-wrapper">
-    <label for="new-property-form__title">Title</label>
-    <input type="text" name="title" placeholder="Title" id="new-property-form__title">
+<link rel="stylesheet" href="/styles/index.css">
+<link rel="stylesheet" href="/styles/nav.css">
+<link rel="stylesheet" href="/styles/new-tweet.css">
+<link rel="stylesheet" href="/styles/container.css">
+<!-- Bungee/Source Sans Pro Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+
+<!-- Icons - AwesomeFont -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+<header class="section menu">
+  <nav>
+    <span class="tweeter-name">tweeters</span>
+    <span class="logo">
+      <span><b>Write</b> a new tweet</span>
+      <i class="fas fa-angle-double-down"></i>
+    </span>
+  </nav>
+</header>
+<div class ="container">
+  <div class = "left">
+    <form action="/buy-sell" method="post" id="new-property-form" class="new-property-form">
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__title">Title</label>
+        <input type="text" name="title" placeholder="Title" id="new-property-form__title">
+      </div>
+    
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__description">Description</label>
+        <textarea placeholder="Description" name="description" id="property-form__description" cols="30" rows="10"></textarea>
+      </div>
+    
+    
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__cost">Price</label>
+        <input type="number" name="price" id="new-property-form__cost">
+      </div>
+    
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__thumbnail">Thumbnail Image</label>
+        <input placeholder="Thumbnail Image" type="text" name="thumbnail_photo_url" id="new-property-form__thumbnail">
+      </div>
+    
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__cover">Cover Image</label>
+        <input placeholder="Cover Image" type="text" name="cover_photo_url" id="new-property-form__cover">
+      </div>
+    
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__category">Category</label>
+        <select id="new-property-form__category" name="category">
+          <option>Iron Man</option>
+          <option>Star Lord</option>
+          <option>Spiderman</option>
+          <option>Black Widow</option>
+          <option>Batman</option>
+          <option>Thanos</option>
+        </select>
+      </div>
   </div>
-
-  <div class="new-property-form__field-wrapper">
-    <label for="new-property-form__description">Description</label>
-    <textarea placeholder="Description" name="description" id="property-form__description" cols="30" rows="10"></textarea>
-  </div>
-
-
-  <div class="new-property-form__field-wrapper">
-    <label for="new-property-form__cost">Price</label>
-    <input type="number" name="price" id="new-property-form__cost">
-  </div>
-
-  <div class="new-property-form__field-wrapper">
-    <label for="new-property-form__thumbnail">Thumbnail Image</label>
-    <input placeholder="Thumbnail Image" type="text" name="thumbnail_photo_url" id="new-property-form__thumbnail">
-  </div>
-
-  <div class="new-property-form__field-wrapper">
-    <label for="new-property-form__cover">Cover Image</label>
-    <input placeholder="Cover Image" type="text" name="cover_photo_url" id="new-property-form__cover">
-  </div>
-
-  <div class="new-property-form__field-wrapper">
-    <label for="new-property-form__category">Category</label>
-    <select id="new-property-form__category" name="category">
-      <option>Iron Man</option>
-      <option>Star Lord</option>
-      <option>Spiderman</option>
-      <option>Black Widow</option>
-      <option>Batman</option>
-      <option>Thanos</option>
-    </select>
-  </div>
-
-  <hr>
-
-
+  <div class = "right">
     <div class="new-property-form__field-wrapper">
       <label for="new-property-form__country">Country</label>
       <select id="new-property-form__country" name="country" data-country-selected="CA">
@@ -72,10 +91,12 @@
         <input placeholder="Postal Code" type="text" name="post_code" id="new-property-form__zip" />
       </div>
     </div>
+  </div>
 
     <div class="new-property-form__field-wrapper">
+      <div class="buttons">
         <button>Create</button>
-        <a id="property-form__cancel" href="#">Cancel</a>
+      </div>
     </div>
-
 </form>
+</div>
