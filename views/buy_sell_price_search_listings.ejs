@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta Information -->
+  <title>Favorite</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    type="text/css" />
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/nav.css">
+  <link rel="stylesheet" href="/styles/container.css">
+
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
+    integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- App JS -->
+  <script type="text/javascript" src="/scripts/client.js"></script>
+  <script type='text/javascript' src='scripts/composer-char-counter.js'></script>
+
+  <!-- Bungee/Source Sans Pro Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons - AwesomeFont -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+  <!-- Viewport mobile default prevention -->
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+</head>
+
+<!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
+
+<body>
+
+  <%- include('partials/_header') %>
+
+    <main class="favorites-column-layout">
+
+          <% for (let listing in listings) { %>
+
+            <% if (listings[listing].active) { %>
+
+              <a
+                href="/buy-sell/categories/<%= listings[listing].category_id %>/listings/<%= listings[listing].id %>">
+
+                <section class="display-left">
+
+                  <div class="avatar">
+                    <img src=<%=listings[listing].cover_photo_url %> alt="coverphoto">
+                    <p>$<%= listings[listing].price %>
+                    </p>
+                  </div>
+                  <section class="listing-container">
+                    <div class="title-container">
+                      <header>
+
+                        <p>
+                          <%= listings[listing].title %>
+                        </p>
+                    </div>
+                    </header>
+
+                    <p class="listing-text">
+                      <%= listings[listing].description %>
+                    </p>
+
+                    <footer>
+                      <div>
+                      </div>
+                      <div>
+                      </div>
+                    </footer>
+
+                  </section>
+
+                </section>
+              </a>
+              <% } else { %>
+                <a
+                  href="/buy-sell/categories/<%= listings[listing].category_id %>/listings/<%= listings[listing].id %>">
+
+                  <section class="display-left-sold">
+
+                    <div class="avatar">
+                      <h1>SOLD</h1>
+                    </div>
+                    <section class="listing-container">
+                      <div class="title-container">
+                        <header>
+
+                          <p>
+                            <%= listings[listing].title %>
+                          </p>
+                      </div>
+                      </header>
+
+                      <p class="listing-text">
+                        <%= listings[listing].description %>
+                      </p>
+
+                      <footer>
+                        <div>
+                        </div>
+                        <div>
+                        </div>
+                      </footer>
+
+                    </section>
+
+
+                  </section>
+                </a>
+                </section>
+                <% } %>
+                  <% } %>
+    </main>
+</body>
+
+</html>

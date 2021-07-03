@@ -189,6 +189,34 @@ const setActive = (listingId, db) => {
 
 };
 
+//function to check seller id with listing id
+const findByPrice = (min, max, db) => {
+  const queryParams = [];
+  let queryString = `
+  SELECT * FROM listings
+  WHERE 1=1
+  `;
+
+  if (min) {
+    queryParams.push(min);
+    queryString += ` AND price > $${queryParams.length} `
+  }
+
+  if (max) {
+    queryParams.push(max)
+    queryString += ` AND price < $${queryParams.length} `
+  }
+
+
+  return db.query(queryString, queryParams)
+  .then((response) => {
+    return response.rows;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 
 module.exports = {
   getAllListings,
@@ -204,7 +232,8 @@ module.exports = {
   setActive,
   getBuyerID,
   favoriteCheck,
-  checkSeller
+  checkSeller,
+  findByPrice
 };
 
 

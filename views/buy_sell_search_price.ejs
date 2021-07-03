@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/styles/index.css">
+<link rel="stylesheet" href="/styles/nav.css">
+<link rel="stylesheet" href="/styles/container.css">
+<!-- Bungee/Source Sans Pro Google Font -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap"
+  rel="stylesheet">
+
+<!-- Icons - AwesomeFont -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+  integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+<header class="section menu">
+  <%- include('partials/_header') %>
+</header>
+<div class="container">
+  <div class="price-search">
+    <form action="/buy-sell/filterbyprice" method="post" id="new-property-form" class="new-property-form">
+
+
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__cost">Minimum Price</label>
+        <input type="number" name="minprice" id="new-property-form__cost">
+      </div>
+
+      <div class="new-property-form__field-wrapper">
+        <label for="new-property-form__cost">Maximum Price</label>
+        <input type="number" name="maxprice" id="new-property-form__cost">
+      </div>
+
+
+<div class="new-property-form__field-wrapper">
+  <div class="button-new-listing">
+    <button>Search</button>
+  </div>
+</div>
+</form>
+</div>
