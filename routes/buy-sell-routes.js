@@ -145,7 +145,7 @@ const buySellRouter = (db) => {
       if (userID && parseInt(userID) === parseInt(dbID)) {
         const user_id = parseInt(req.session.user_id);
         const templateVars = { user_id, idObject }
-        res.render('buy_sell_new')
+        res.render('buy_sell_new',templateVars);
       } else {
         alert("You do not have permission to perform this action!");
       }
