@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,9 +9,13 @@
   <link rel="stylesheet" href="/styles/index.css">
   <link rel="stylesheet" href="/styles/nav.css">
   <link rel="stylesheet" href="/styles/container.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap"
+    rel="stylesheet">
   <!-- Bootstrap CSS -->
   <title>Messages</title>
 </head>
@@ -19,37 +24,46 @@
 
 <body class="message-body">
   <%- include('partials/_header') %>
-  <main class="container">
-    <h3>My messages</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">With</th>
-          <th scope="col">Listing Title</th>
-          <th scope="col">Listing Id</th>
-          <th scope="col">View</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(let content in messages) { %>
-          <%= console.log("This is who: ", messages[content].with) %>
+    <main class="container">
+      <h3>My messages</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">With</th>
+            <th scope="col">Listing Title</th>
+            <th scope="col">Listing Id</th>
+            <th scope="col">View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let content in messages) { %>
+            <%= console.log("This is who: ", messages[content].with) %>
           <tr>
             <td><%= messages[content].with %></td>
             <td><%= messages[content].title %></td>
             <td><%= messages[content].listing_id %></td>
             <td>
-              <form method="post" action='/messages' >
-                <button type="submit" class="btn btn-outline-primary" name="requiredData" value=<%=`${messages[content].listing_id},${messages[content].from_id},${messages[content].to_id}`%>> View </button>
+              <form method=" post" action='/messages'>
+              <button type="submit" class="btn btn-outline-primary" name="requiredData"
+                value=<%=`${messages[content].listing_id},${messages[content].from_id},${messages[content].to_id}`%>>
+                View </button>
               </form>
-            </td>
-          </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </main>
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+              </td>
+              </tr>
+              <% } %>
+        </tbody>
+      </table>
+    </main>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
 </body>
+
 </html>

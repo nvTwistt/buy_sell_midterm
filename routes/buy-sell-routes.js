@@ -5,47 +5,32 @@ const helperQueries = require('../db/queries/helper-queries-and-functions');
 const userCheck = require("../db/queries/helper-queries-and-functions");
 const buySellRouter = (db) => {
 
-  // const userID = req.session.user_id;
-  // const userDB = helperQueries.checkUser(userID).then((data) => {
-  //   return data;
-  // });
-  // let idObject;
-  // const getObject = async () => {
-  //   idObject = await userDB;
-  //   let dbID = idObject.id;
-  //   if (userID && parseInt(userID) === parseInt(dbID)) {
 
-  //   }
-  // };
-  // getObject();
+  //All routes have user authentication success and non success cases
 
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-  }
 
   //GET /buy-sell
-  //remove user authentication
   router.get('/', (req, res) => {
     const userID = req.session.user_id;
-
-
+// initialize variables for random number storing. Will be used to pass a listing id to features section
     let rand1;
     let rand2;
     let rand3;
     let rand4;
 
-
+//User authentication non-user route
     if (!userID) {
+      //Query database to find all categories and all listings
       buySellQueries.getAllCategories(db)
         .then((categories) => {
           buySellQueries.getAllListings(db)
             .then((listings) => {
 
-              let min = 0;
-              let max = listings.length;
+              //initialize variables for min and max in random number generator
+              const min = 0;
+              const max = listings.length;
 
+              //Ensure no numbers are the same
               while (rand1 === rand2 || rand1 === rand3 || rand1 === rand4 || rand2 === rand3 || rand2 === rand4 || rand3 === rand4) {
                 rand1 = getRandomInt(min, max);
                 rand2 = getRandomInt(min, max);
@@ -54,16 +39,19 @@ const buySellRouter = (db) => {
               }
 
 
-
-              const user_id = null
+              //Pass null if user does not exist
+              const user_id = null;
               const templateVars = { rand1, rand2, rand3, rand4, user_id, listings, categories }
               res.render('index', templateVars);
             })
         })
     } else {
+    //Happy path for logged in user
+    //Check database for user. Same method applied to all routes that require.
       const userDB = helperQueries.checkUser(userID).then((data) => {
         return data;
       });
+      //Create object to store user information. Will be used to render nav on all pages.
       let idObject;
       const getObject = async () => {
         idObject = await userDB;
@@ -73,8 +61,8 @@ const buySellRouter = (db) => {
             buySellQueries.getAllListings(db)
               .then((listings) => {
 
-                let min = 0;
-                let max = listings.length;
+                const min = 0;
+                const max = listings.length;
 
                 while (rand1 === rand2 || rand1 === rand3 || rand1 === rand4 || rand2 === rand3 || rand2 === rand4 || rand3 === rand4) {
                   rand1 = getRandomInt(min, max);
@@ -85,9 +73,7 @@ const buySellRouter = (db) => {
 
                 const user_id = parseInt(userID)
 
-                console.log(idObject)
                 const templateVars = { rand1, rand2, rand3, rand4, user_id, idObject, listings, categories }
-                console.log(listings)
                 res.render('index', templateVars);
               })
           })
@@ -108,15 +94,15 @@ const buySellRouter = (db) => {
       idObject = await userDB;
       let dbID = idObject.id;
       if (userID && parseInt(userID) === parseInt(dbID)) {
+      //cross reference listing seller ID with owner id for authentication
         const sellerId = parseInt(userID);
         const listing = req.body;
         listing['seller_id'] = sellerId;
-        console.log(listing.category)
+        //function to query category that belongs to listing type before adding to database
         buySellQueries.getCategoryForAddListing(listing.category, db)
           .then((categoryId) => {
             const id = categoryId['id'];
             listing['category_id'] = id;
-            console.log(listing)
             buySellQueries.addListing(listing, db)
               .then(() => {
                 const templateVars = { user_id, idObject }
@@ -132,7 +118,6 @@ const buySellRouter = (db) => {
   })
 
   //GET /buy-sell/new
-  //no need to change
   router.get('/new', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -155,7 +140,6 @@ const buySellRouter = (db) => {
   })
 
   //GET /buy-sell/favorites
-  //leave as is
   router.get('/favorites', (req, res) => {
     const userID = req.session.user_id;
     const userDB = helperQueries.checkUser(userID).then((data) => {
@@ -166,8 +150,8 @@ const buySellRouter = (db) => {
       idObject = await userDB;
       let dbID = idObject.id;
       if (userID && parseInt(userID) === parseInt(dbID)) {
-        console.log("userid", userID)
         const buyerId = parseInt(userID)
+        //function to query database for user favorites
         buySellQueries.getFavorites(buyerId, db)
           .then((favorites) => {
             const user_id = parseInt(userID)
@@ -195,8 +179,8 @@ const buySellRouter = (db) => {
       const getObject = async () => {
         idObject = await userDB;
         let dbID = idObject.id;
+        //receive listing id from post request object and extract value
         const listingId = Object.keys(req.body)[0];
-        console.log(listingId, dbID);
         buySellQueries.getBuyerID(listingId, parseInt(dbID), db)
           .then((data) => {
             if (data.length === 0) {
@@ -204,7 +188,7 @@ const buySellRouter = (db) => {
               //since you can not check with db yet
               if (userID && parseInt(userID) === parseInt(dbID)) {
                 const listing = { buyer_id: parseInt(userID), listing_id: listingId };
-                console.log(listing);
+                //function to add favorite to user database
                 buySellQueries.addFavorite(listing, db)
                   .then(() => {
                     const user_id = null;
@@ -242,23 +226,19 @@ const buySellRouter = (db) => {
     const userDB = helperQueries.checkUser(userID).then((data) => {
       return data;
     });
-    //Check favorites buyer_id = session id
+
     let idObject;
     const getObject = async () => {
       idObject = await userDB;
       let dbID = idObject.id;
       listingId = Object.keys(req.body)[0];
-      console.log("id's: ", listingId, dbID);
+//function to check if favorites buyer_id = session id
       buySellQueries.favoriteCheck(listingId, dbID, db)
         .then((data) => {
-          console.log("here: ", data);
-          let buyer_id_from_favorites = data[0].buyer_id;
-          console.log("userID: ", userID, "dbID: ", dbID, "favorites_ID: ", buyer_id_from_favorites);
+          const buyer_id_from_favorites = data[0].buyer_id;
           if (userID && parseInt(dbID) === parseInt(buyer_id_from_favorites)) {
             buySellQueries.deleteFavoriteListing(listingId, db)
               .then(() => {
-                const user_id = parseInt(userID)
-                const templateVars = { user_id, idObject }
                 res.redirect('/buy-sell/favorites');
               })
           }
@@ -268,7 +248,6 @@ const buySellRouter = (db) => {
   })
 
   //GET /buy-sell/categories
-  //two cases for authenticated and not authenticated
   router.get('/categories', (req, res) => {
     const userID = req.session.user_id;
     if (!userID) {
@@ -302,16 +281,15 @@ const buySellRouter = (db) => {
   })
 
   //GET /buy-sell/categories/:id
-  //double case check if else
   router.get('/categories/:id', (req, res) => {
     const userID = req.session.user_id;
     const categoryId = req.params.id;
     if (!userID) {
       buySellQueries.getAllCategories(db)
         .then((categories) => {
+//function to obtain all listings belonging to a particular category
           buySellQueries.getCategoryListings(categoryId, db)
             .then((category) => {
-              console.log(category)
               const user_id = null
               const templateVars = { user_id, category, categories }
               res.render('buy_sell_categories_show', templateVars);
@@ -347,7 +325,6 @@ const buySellRouter = (db) => {
 
 
   //GET /buy-sell/categories/:id/listings/:id
-  //double check with the if else
   router.get('/categories/:id1/listings/:id2', (req, res) => {
     const userID = req.session.user_id;
     const categoryId = req.params.id1;
@@ -374,15 +351,16 @@ const buySellRouter = (db) => {
         if (userID && parseInt(userID) === parseInt(dbID)) {
           buySellQueries.getAllCategories(db)
             .then((categories) => {
+//function to check individual listing
               buySellQueries.getListing(listingId, categoryId, db)
                 .then((categoryListings) => {
                   categoryListings = categoryListings[0];
                   const user_id = parseInt(userID)
+//function to check listing owner id with seller id
                   buySellQueries.checkSeller(listingId, db)
                     .then((data) => {
-                      let to_id = parseInt(userID);
-                      let seller_id_number = data[0].seller_id;
-                      console.log(seller_id_number, to_id);
+                      const to_id = parseInt(userID);
+                      const seller_id_number = data[0].seller_id;
                       const templateVars = { user_id, idObject, categoryListings, categories, seller_id_number, to_id, listingId }
                       res.render('buy_sell_listing_show', templateVars);
                     })
@@ -449,7 +427,6 @@ const buySellRouter = (db) => {
           if (userID && parseInt(seller_id_number) === parseInt(dbID)) {
             const listingId = req.params.id2;
             const categoryId = req.params.id1;
-            console.log('here')
             buySellQueries.setActive(listingId, db)
               .then(() => {
                 let user_id = parseInt(userID);
@@ -470,7 +447,6 @@ const buySellRouter = (db) => {
       res.send("You don't have permission to perform this action!");
     } else {
       const userDB = userCheck.checkUser(user_id).then((data) => {
-        console.log("data: ", data);
         return data;
       });
       let idObject;
@@ -479,11 +455,8 @@ const buySellRouter = (db) => {
         let dbID = idObject.id;
         if (user_id && parseInt(user_id) === parseInt(dbID)) {
           const bodyText = res.req.body.form;
-          console.log("response: ", res.req.body);
-          console.log("res: ", Object.keys(res.req));
           let returnData = req.body;
           let requiredData = returnData["requiredData"];
-          console.log("require data: ", requiredData);
           let splitData = requiredData.split(",");
           let first_id = splitData[0];
           let second_id = splitData[1];
@@ -525,7 +498,6 @@ const buySellRouter = (db) => {
             queryData
           )
             .then((data) => {
-              //console.log(data);
             })
             .catch((err) => {
               console.log(err);

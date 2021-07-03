@@ -1,56 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Meta Information -->
-    <title>Category</title>
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
+<head>
+  <!-- Meta Information -->
+  <title>Category</title>
 
-    <!-- App CSS -->
-    <link rel="stylesheet" href="/styles/index.css">
-    <link rel="stylesheet" href="/styles/nav.css">
-    <link rel="stylesheet" href="/styles/new-tweet.css">
-    <link rel="stylesheet" href="/styles/container.css">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    type="text/css" />
 
-    <!-- External JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/nav.css">
+  <link rel="stylesheet" href="/styles/new-tweet.css">
+  <link rel="stylesheet" href="/styles/container.css">
 
-    <!-- App JS -->
-    <script type="text/javascript" src="/scripts/client.js"></script>
-    <script type='text/javascript' src='scripts/composer-char-counter.js'></script>
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
+    integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Bungee/Source Sans Pro Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+  <!-- App JS -->
+  <script type="text/javascript" src="/scripts/client.js"></script>
+  <script type='text/javascript' src='scripts/composer-char-counter.js'></script>
 
-    <!-- Icons - AwesomeFont -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <!-- Bungee/Source Sans Pro Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap"
+    rel="stylesheet">
 
-    <!-- Viewport mobile default prevention -->
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
-  </head>
+  <!-- Icons - AwesomeFont -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+  <!-- Viewport mobile default prevention -->
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+</head>
 
 <!-- Body divided into: menu(nav), hero(header-nav), content(form), feature(articles), and footer -->
-  <body>
-    <%- include('partials/_header') %>
+
+<body>
+  <%- include('partials/_header') %>
 
     <main class="category-main-page">
       <% for(let category in categories) { %>
         <a href="/buy-sell/categories/<%= categories[category].id %>" class="category-container">
-        <section class="section feature">
-          <div class="outer-category-container"><section class="category-design">
+          <section class="section feature">
+            <div class="outer-category-container">
+              <section class="category-design">
 
-            <p class="category-text"><%= categories[category].name %></p>
+                <p class="category-text">
+                  <%= categories[category].name %>
+                </p>
 
-          </section></div>
-        </section>
+              </section>
+            </div>
+          </section>
         </a>
-      <% } %>
+        <% } %>
     </main>
-  </body>
+</body>
+
 </html>
 
 <header class="category-background">
-
-

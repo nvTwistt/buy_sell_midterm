@@ -19,7 +19,7 @@ const getBuyerID = (listing_id, buyer_id, db) => {
   WHERE id = $1 AND buyer_id = $2;`
   ,[listing_id, buyer_id])
   .then((response) => {
-    
+
     return response.rows;
   })
   .catch((err) => {
@@ -78,6 +78,8 @@ const getCategoryListings = (categoryId, db) => {
   });
 };
 
+
+//function to get all favorites
 const getFavorites = (buyerId, db) => {
   return db.query(`SELECT title, description, cover_photo_url, thumbnail_photo_url, price, city, category_id, listings.id, active FROM listings
   JOIN favorites ON favorites.listing_id = listings.id
@@ -90,6 +92,7 @@ const getFavorites = (buyerId, db) => {
   });
 };
 
+//function to delete favorites
 const deleteFavoriteListing = (listingId, db) => {
   return db.query(`DELETE FROM favorites
   WHERE favorites.listing_id = $1
@@ -102,6 +105,7 @@ const deleteFavoriteListing = (listingId, db) => {
   });
 };
 
+//function to check seller id with listing id
 const checkSeller = (listingId,db) => {
   return db.query(`
   SELECT seller_id
@@ -116,6 +120,8 @@ const checkSeller = (listingId,db) => {
   })
 }
 
+//function for adding favorites
+
 const addFavorite = (listing, db) => {
   const values = [listing.buyer_id, listing.listing_id];
   return db.query(`INSERT INTO favorites(buyer_id, listing_id)
@@ -129,7 +135,7 @@ const addFavorite = (listing, db) => {
   });
 };
 
-
+//function for adding a listing
 const addListing = (listing, db) => {
   const values = [listing.seller_id, listing.title, listing.description, listing.thumbnail_photo_url, listing.cover_photo_url, listing.price, listing.country, listing.street, listing.city, listing.province, listing.post_code, listing.category_id];
   return db.query(`INSERT INTO listings(seller_id, title, description, thumbnail_photo_url, cover_photo_url, price, country, street, city, province, post_code, active, category_id)
@@ -143,6 +149,8 @@ const addListing = (listing, db) => {
   });
 };
 
+
+//function for getting category type before adding to listing
 const getCategoryForAddListing = (name, db) => {
   return db.query(`SELECT id FROM category_list
   WHERE name = $1
@@ -155,6 +163,8 @@ const getCategoryForAddListing = (name, db) => {
   });
 };
 
+
+//function for deleting a listing
 const deleteListing = (listingId, categoryId, db) => {
   return db.query(`DELETE FROM listings
   WHERE listings.id = $1
@@ -168,10 +178,14 @@ const deleteListing = (listingId, categoryId, db) => {
   });
 };
 
+//function for setting listing to active
 const setActive = (listingId, db) => {
   return db.query(`UPDATE listings
   SET active = FALSE
   WHERE id = $1`, [listingId])
+  .catch((err) => {
+    console.log(err.message);
+  });
 
 };
 
@@ -189,7 +203,7 @@ module.exports = {
   deleteListing,
   setActive,
   getBuyerID,
-  favoriteCheck, 
+  favoriteCheck,
   checkSeller
 };
 

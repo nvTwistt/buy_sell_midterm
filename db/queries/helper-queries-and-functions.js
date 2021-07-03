@@ -2,9 +2,9 @@
 const db = require('../../lib/db-connection');
 
 /**
- * 
- * @param userId 
- * @returns an object containing information about the user including 
+ *
+ * @param userId
+ * @returns an object containing information about the user including
  * their id number and name.
  */
 const checkUser = (userId) => {
@@ -18,4 +18,12 @@ const checkUser = (userId) => {
   });
 };
 
-module.exports = { checkUser }
+//return random number given min and max parameters
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+module.exports = { getRandomInt, checkUser }
