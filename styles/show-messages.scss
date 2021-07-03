@@ -24,3 +24,15 @@
   outline-style: solid;
   outline-width: 2px;
 }
+
+.message-body {
+  display: flex;
+  flex-direction: column;
+  nav {
+    display: flex;
+    flex-direction: row;
+  }
+  .container {
+    padding-top: 350px;
+  }
+}

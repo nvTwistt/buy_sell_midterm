@@ -27,3 +27,17 @@
   outline-style: solid;
   outline-width: 2px;
 }
+
+.message-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-body nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.message-body .container {
+  padding-top: 350px;
+}

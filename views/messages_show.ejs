@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="/styles/show-messages.css">
   <link rel="stylesheet" href="/styles/index.css">
   <link rel="stylesheet" href="/styles/nav.css">
-  <link rel="stylesheet" href="/styles/new-tweet.css">
   <link rel="stylesheet" href="/styles/container.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -15,17 +14,11 @@
   <!-- Bootstrap CSS -->
   <title>Messages</title>
 </head>
-<body>
-  <nav class="top">
-    <span class="nav-titles"><a href="/buy-sell">Home</a></span>
-    <span class="nav-titles"><a href="/buy-sell/categories">Categories</a></span>
-    <span class="nav-titles"><a href="/messages">Messages</a></span>
-    <span class="nav-titles"><a href="/buy-sell/favorites">Favorites</a></span>
-    <span class="nav-titles"><a href="/buy-sell/new"> New Listing</a></span>
-    <span class="logo">
-      <span>Logged in as: <%=idObject.name%> </span>
-      </span>
-  </nav>
+
+
+
+<body class="message-body">
+  <%- include('partials/_header') %>
   <main class="container">
     <h3>My messages</h3>
     <table class="table">

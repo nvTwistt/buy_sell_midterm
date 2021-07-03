@@ -5,6 +5,7 @@
   justify-content: center;
   background-color: white;
   align-items: center;
+  padding-top: 2em;
 }
 
 .messagecontainer {
@@ -15,6 +16,7 @@
   justify-content: center;
   background-color: white;
   align-items: center;
+  margin-top: 4em;
 }
 
 .sender {
@@ -192,7 +194,7 @@
   padding-left: 1em;
   padding-right: 1em;
   padding-bottom: 0.5em;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .left {
