@@ -9,12 +9,14 @@ A non-logged in user can:
 2. Filter listings by price.
 3. Favorite listing to check up on later
 4. Send messages to the user that is selling the item
+5. Users can filter by category.
 
 A logged in user can:
 1. Add a new listing
-2. Remove their added listing
-3. Mark items as sold
-4. Reply back to the interested buyer
+2. Edit their listing
+3. Remove their added listing
+4. Mark items as sold
+5. Reply back to the interested buyer
 
 ## Getting Started
 
