@@ -53,7 +53,6 @@ const allMessageRouter = () => {
               const userId = parseInt(userID);
               const templateVars = {
                 userId,
-                user_id: userID,
                 messages: data,
                 idObject,
               };
@@ -84,8 +83,8 @@ const allMessageRouter = () => {
       const returnData = req.body;
       const requiredData = returnData["requiredData"];
       const identifier = helperFunctions.identifyRoles(requiredData);
-      delete req.session.seller_id;
-      req.session.seller_id = identifier.sellerIdNumber;
+      delete req.session.sellerId;
+      req.session.sellerId = identifier.sellerIdNumber;
       let redirectKey;
       const userDB = userCheck.checkUser(userID).then((data) => {
         return data;
@@ -107,11 +106,11 @@ const allMessageRouter = () => {
           } else {
             redirectKey = identifier.buyer_id_number + userID + identifier.listing_id_number;
             messageQueries.getUserName(identifier.buyer_id_number).then((data) => {
-              const buyer_name = data[0].name;
+              const buyerName = data[0].name;
               sessionDatabase[userID] = {
                 listing: identifier.listing_id_number,
                 id: identifier.buyer_id_number,
-                buyer: buyer_name,
+                buyer: buyerName,
               };
             });
             res.redirect(`/messages/${redirectKey}`);
@@ -131,30 +130,30 @@ const allMessageRouter = () => {
    * render which will instantly update the conversation.
    */
   router.post("/:id", (req, res) => {
-    let user_id = req.session.user_id;
-    if (!user_id) {
+    let userIdNumber = req.session.user_id;
+    if (!userIdNumber) {
       res.send("You don't have permission to perform this action!");
     } else {
-      const userDB = userCheck.checkUser(user_id).then((data) => {
+      const userDB = userCheck.checkUser(userIdNumber).then((data) => {
         return data;
       });
-      const getObject = async () => {
+      const getObject = async() => {
         const idObject = await userDB;
         const dbID = idObject.id;
-        if (user_id && parseInt(user_id) === parseInt(dbID)) {
+        if (userIdNumber && parseInt(userIdNumber) === parseInt(dbID)) {
           const bodyText = req.body.text;
           const returnData = req.body;
           const requiredData = returnData["requiredData"];
           const messageIdentifier = helperFunctions.splitData(requiredData);
-          const buyer_id = helperFunctions.getBuyer(messageIdentifier, user_id);
+          const buyerId = helperFunctions.getBuyer(messageIdentifier, userIdNumber);
           const dateTime = helperFunctions.getDate();
-          const listing_id_number = parseInt(messageIdentifier.list_id);
+          const listingIdNumber = parseInt(messageIdentifier.list_id);
           const queryData = [
-            parseInt(user_id),
-            parseInt(buyer_id),
+            parseInt(userIdNumber),
+            parseInt(buyerId),
             dateTime,
             bodyText,
-            parseInt(listing_id_number),
+            parseInt(listingIdNumber),
           ];
           messageQueries.insertNewMessage(queryData).catch((err) => {
             console.log(err);
@@ -177,28 +176,28 @@ const allMessageRouter = () => {
    */
   router.get("/:id", (req, res) => {
     const userID = req.session.user_id;
-    const sellerID = req.session.seller_id;
+    const sellerID = req.session.sellerId;
     if (!userID) {
       res.send("You don't have permission to perform this action!");
     } else {
       const userDB = userCheck.checkUser(userID).then((data) => {
         return data;
       });
-      const getObject = async () => {
+      const getObject = async() => {
         const idObject = await userDB;
         const dbID = idObject.id;
         if (userID && parseInt(userID) === parseInt(dbID)) {
-          const listing_id_number = sessionDatabase[sellerID].listing;
-          const buyer_id_number = sessionDatabase[sellerID].id;
-          const buyer_name = sessionDatabase[sellerID].buyer;
-          const query_params = [
-            req.session.seller_id,
-            listing_id_number,
-            buyer_id_number,
+          const listingIdNumber = sessionDatabase[sellerID].listing;
+          const buyerIdNumber = sessionDatabase[sellerID].id;
+          const buyersName = sessionDatabase[sellerID].buyer;
+          const queryParams = [
+            req.session.sellerId,
+            listingIdNumber,
+            buyerIdNumber,
           ];
           const name = req.session.user_name;
           messageQueries
-            .getConversation(query_params)
+            .getConversation(queryParams)
             .then((data) => {
               for (let items of data) {
                 let sent = moment(items.time_sent).fromNow();
@@ -208,9 +207,9 @@ const allMessageRouter = () => {
               const templateVars = {
                 userId,
                 userName: name,
-                user_id: userID,
+                userIdNum: userID,
                 messages: data,
-                buyerName: buyer_name,
+                buyerName: buyersName,
                 idObject,
               };
               res.render("messages", templateVars);
