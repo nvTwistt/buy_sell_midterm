@@ -1,8 +1,6 @@
 # Midterm Project - Buy/Sell Listings Website
 
-Tweeter is a front-end featured web application built with Node and Express that allow users to view an aesthetic interface for a database of messages. The user can input a message and instantly see it updated on their screen in a neat textbox with randomized names, handles, and avatars. User functionality includes: Fixed header when scrolling; Responsive layout design for different devices and screen sizes; Error boxes for incorrect inputs, which are displayed in a smooth transition with the ultimate effect of the tweet not being submitted. To put it briefly, Tweeter is a simple and efficient single-page Twitter clone.
-
-This Buy/Sell listings website is a web application built with Node and Express that allow users to effectively search for listings and communicate with the buyer to purchase them. 
+This Buy/Sell listings website is a web application built with Node and Express that allow users to effectively search for listings and communicate with the buyer to purchase them. User functionality when not authenticated includes: Ability to browse and filter all listings by category and price. User functionality when authenticated includes: Ability to browse and filter all listings by category and price, create a new listing, edit a current listing, remove a listing, mark a listing as sold, and users and sellers can communicate via messaging. To put it briefly, Buy/Sell Listings Website is similar to Kijiji
 
 A non-logged in user can:
 1. See featured listings on the home page.
