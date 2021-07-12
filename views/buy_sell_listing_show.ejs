@@ -92,7 +92,7 @@
 
             </section>
           </section>
-          <% if (!user_id && categoryListings['seller_id']===user_id) { %>
+          <% if (!userId && categoryListings['seller_id']===user_id) { %>
 
 
             </section>
@@ -119,7 +119,7 @@
             </section>
             <% } %>
 
-              <% if (categoryListings['seller_id'] !==user_id) { %>
+              <% if (categoryListings['seller_id'] !==userId) { %>
                 <div class="listing-buttons">
                   <div class="listing-buttons">
                     <form class="form-inline" action="/buy-sell/favorites" method="POST">
@@ -136,7 +136,7 @@
                       <br>
                       <div class="submission-1">
                         <button id="submissionButton-1" class="messageButton-1" type="submit" name="requiredData"
-                          value=<%=`${seller_id_number},${user_id},${listingId}`%>>Send Message</button>
+                          value=<%=`${seller_id_number},${userId},${listingId}`%>>Send Message</button>
                       </div>
                     </form>
                   </div>
@@ -180,7 +180,7 @@
 
 
 
-                      <% if (categoryListings['seller_id']===user_id) { %>
+                      <% if (categoryListings['seller_id']===userId) { %>
 
 
                     </section>
