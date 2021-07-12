@@ -25,11 +25,12 @@ A logged in user can:
 
 ## Final Product
 
-!["Screenshot of error handling"](https://github.com/Soliloquiy/tweeter/blob/master/docs/error-handling.png)
-!["Screenshot of error handling-2"](https://github.com/Soliloquiy/tweeter/blob/master/docs/error-handling-2.png)
-!["Screenshot of mobile view"](https://github.com/Soliloquiy/tweeter/blob/master/docs/mobile-view.png)
-!["Screenshot of mobile view-2"](https://github.com/Soliloquiy/tweeter/blob/master/docs/mobile-view-2.png)!["Screenshot of tablet-desktop-view"](https://github.com/Soliloquiy/tweeter/blob/master/docs/tablet-desktop-view.png)
-!["Screenshot of tablet-desktop-view-2"](https://github.com/Soliloquiy/tweeter/blob/master/docs/tablet-desktop-view-2.png)
+!["Screenshot of all listings"](https://github.com/nvTwistt/buy_sell_midterm/blob/master/docs/buy-sell.png)
+!["Screenshot of all categories"](https://github.com/nvTwistt/buy_sell_midterm/blob/master/docs/categories.png)
+!["Screenshot of create a new listing"](https://github.com/nvTwistt/buy_sell_midterm/blob/master/docs/create-new-add.png)
+!["Screenshot of favorites"](https://github.com/nvTwistt/buy_sell_midterm/blob/master/docs/favorites.png)
+!["Screenshot of filter by price"](https://github.com/nvTwistt/buy_sell_midterm/blob/master/docs/filter-by-price.png)
+!["Screenshot of listings in a category"](https://github.com/nvTwistt/buy_sell_midterm/blob/master/docs/star-lord.png)
 
 
 ## Dependencies
